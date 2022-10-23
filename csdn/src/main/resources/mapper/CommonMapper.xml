@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CommonMapper">
+
+    <resultMap id="commonResultMap" type="common">
+        <result property="blogId" column="blog_id"/>
+        <result property="userUid" column="user_uid"/>
+        <result property="rootId" column="root_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentUserUid" column="parent_user_uid"/>
+    </resultMap>
+
+    <insert id="addRootCommon" useGeneratedKeys="true" keyProperty="id">
+        insert into common_root(user_uid, blog_id, content, date)
+        VALUES (#{userUid}, #{blogId}, #{content}, #{date});
+    </insert>
+
+    <insert id="addChildCommon" useGeneratedKeys="true" keyProperty="id">
+        insert into common_child (blog_id, root_id, parent_id, user_uid, parent_user_uid, content, date)
+        values (#{blogId}, #{rootId}, #{parentId}, #{userUid}, #{parentUserUid}, #{content}, #{date});
+    </insert>
+
+    <select id="selectRootByBlogId" resultMap="commonResultMap">
+        select *
+        from common_root
+        where blog_id = #{blogId}
+        limit #{index}, #{pageSize};
+    </select>
+
+    <select id="selectRootByBlogIdTot" resultType="java.lang.Integer">
+        select count(*)
+        from common_root
+        where blog_id = #{blogId};
+    </select>
+
+    <select id="selectChildByRootId" resultMap="commonResultMap">
+        select *
+        from common_child
+        where root_id = #{rootId};
+    </select>
+
+
+</mapper>

@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="css/blog.css">
+    <link rel="stylesheet" href="css/common.css">
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+
+    <link rel="stylesheet" href="editormd/css/editormd.css"/>
+    <script src="editormd/editormd.min.js"></script>
+    <script src="editormd/lib/marked.min.js"></script>
+    <script src="editormd/lib/prettify.min.js"></script>
+    <script src="editormd/lib/raphael.min.js"></script>
+    <script src="editormd/lib/flowchart.min.js"></script>
+    <script src="editormd/lib/jquery.flowchart.min.js"></script>
+    <script src="editormd/lib/underscore.min.js"></script>
+    <script src="editormd/lib/sequence-diagram.min.js"></script>
+
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+</head>
+<body>
+
+<iframe width=0 height=0 frameborder=0 id="myiframe" name="myIframe"></iframe>
+
+<div id="app">
+    <!-- 顶部导航条 -->
+    <div id="nav">
+
+        <div class="nav-left">
+            <a href="index.html" class="nav-left-img">
+                <img title="首页" src="images/logo1.png">
+            </a>
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+        </div>
+        <!--搜索栏    -->
+        <div class="nav-center">
+            <div class="nav-center-search">
+                <div class="nav-center-search-radius">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </div>
+                <input type="text" placeholder="代码改变世界" id="searchInput">
+                <div class="nav-center-search-button" id="searchButton">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    搜索
+                </div>
+            </div>
+        </div>
+        <div class="nav-right" id="nav-right">
+            <div class="nav-right-login" onclick="location.href='http://localhost:8080/brand-case/login.html'">
+                登录/注册
+            </div>
+            <!--            <div class="nav-right-head">-->
+            <!--                <img src="images/defaultHead.png" alt="head" class="nav-right-head-img">-->
+            <!--            </div>-->
+            <!--            <div class="nav-right-personalCenter" id="personalCenter">-->
+            <!--                个人中心-->
+            <!--            </div>-->
+            <!--            <div class="nav-right-leave" id="nav-right-leave">-->
+            <!--                退出登录-->
+            <!--            </div>-->
+            <div class="nav-right-button" onclick="location.href='creationBlog.html'">
+                发布
+            </div>
+        </div>
+    </div>
+
+    <!--  头部分类导航（作废为布局）  -->
+    <div id="header">
+        <div class="header-center">
+        </div>
+    </div>
+
+    <!--  主体部分    -->
+    <div id="main">
+
+        <div class="main-main">
+            <div class="main-left">
+                <div class="main-left-head" id="main-left-head">
+                    <img src="images/defaultHead.png"
+                         style="width: 48px;height: 48px;border-radius: 50%;overflow: hidden;">
+                    <div class="main-left-head-info">
+                        <div class="main-left-head-info-name" id="main-left-head-info-name">
+                            用户昵称
+                        </div>
+                        <div class="main-left-head-info-maAge" id="maAge">
+                            码龄4年
+                        </div>
+                    </div>
+                </div>
+                <div id="userSignature"
+                     style="width: 100%;height: 50px;display: flex;justify-content: center;align-items: center;">
+                    这个少年很懒...
+                </div>
+                <div style="width: 100%;display: flex;justify-content: center;align-items: center;">
+                    <div class="guanzhu" onclick="changeUserFriendShipFunction()" id="guanzhuDiv1">
+                        关注
+                    </div>
+                </div>
+                <div style="background-color: #f5f5f5;width: 100%;height: 10px;"></div>
+                <div style="display: flex;justify-content: center;align-items: center;margin-left: 40px;margin-top: 20px;">
+                    <div class="form-group" style="display: flex;justify-content: center;align-items: center;">
+                        <input class="form-control" id="q" placeholder=" 搜博主文章">
+                    </div>
+                </div>
+            </div>
+
+
+            <!--        博客的主体    -->
+            <div class="main-center">
+                <div class="blog-header" id="blog-header">
+                    <!--            博客的标题    -->
+                    <div class="blog-header-title">
+                        富文本编辑器Editor.md入门
+                    </div>
+                    <div class="blog-header-info">
+                        <div class="blog-header-info-main">
+                            <div id="blog-is-original">
+                                <img src="images/original.png" alt="original" style="width: 36px;height: 32px;">
+                            </div>
+                            <div style="padding-left: 16px;font-size: 14px;font-weight: 400;margin-right: 20px;"
+                                 id="authorName">
+                                用户的名字
+                            </div>
+                            <div style="color: rgb(153,154,170);font-size: 16px;">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                <div style="padding-left: 8px;padding-right: 16px;font-size: 14px;font-weight: 400;">
+                                    发布时间
+                                </div>
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                <div style="padding-left: 8px;padding-right: 16px;font-size: 14px;font-weight: 400;">
+                                    浏览数量
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--            博客内容    -->
+                <div class="blog-content">
+                    <!--z-index: number ：设置元素的堆叠顺序，number大的排在前面-->
+                    <div id="md-content" style="z-index: 1 !important; padding: 16px 0 0;">
+                        <textarea name="blogContent" style="display: none" id="blogContent"></textarea>
+                    </div>
+                </div>
+
+                <!--            关注点赞收藏    -->
+                <div class="blog-bottom" id="blog-bottom">
+                    <div class="blog-bottom-left">
+                        <div class="blog-bottom-left-head">
+                            <img src="images/defaultHead.png" alt="images/defaultHead.png">
+                        </div>
+                        <div class="blog-bottom-left-name">
+                            记忆芳华
+                        </div>
+                        <div class="blog-bottom-left-guanzhu" id="guanzhuDiv2" onclick="changeUserFriendShipFunction()">
+                            关注
+                        </div>
+                    </div>
+                    <div class="blog-bottom-right" id="dianzanshoucang">
+                        <div id="likeDiv">
+                            <span class="glyphicon glyphicon-heart" onclick="changeUserLikes()"
+                                  style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                            7
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-heart-empty" onclick="changeUserLikes()"
+                                  aria-hidden="true"></span>
+                        </div>
+                        <div id="collectDiv">
+                            <span class="glyphicon glyphicon-star" onclick="changeUserCollects()"
+                                  style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                            21
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-star-empty" onclick="changeUserCollects()"
+                                  aria-hidden="true"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-right">
+                <div class="common-textarea">
+                    <textarea class="common-textarea-item1" id="commonInput" placeholder="请输入评论信息..."></textarea>
+                    <div class="common-textarea-item2">
+                        <div class="common-textarea-item2-left" id="commonMsg">
+                            还可以输入
+                            <span style="color: #555666">200</span>
+                            个字符
+                        </div>
+                        <div class="common-textarea-item2-right">
+                            <button type="button" class="btn btn-default btn-xs"
+                                    style="font-size: 12px;height: 26px;padding: 4px 8px;"
+                                    onclick='common.rootId=0;document.getElementById("commonInput").value = "";document.getElementById("commonInput").placeholder = "请输入评论信息...";'
+                            > 清空
+                            </button>
+                            <button type="button" class="btn btn-default btn-xs" onclick="addCommonFunction();"
+                                    style="font-size: 12px;height: 26px;padding: 4px 8px;"> 评论
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="commons" id="commons">
+                    暂无评论~
+                </div>
+                <div class="main-center-bottom" id="pagingIndex">
+                    <div onclick="lastPageSearch()">
+                        < 上一页
+                    </div>
+                    <div onclick="curPage = 1;updateCommons();">
+                        1
+                    </div>
+                    <div onclick="nextPageSearch()">
+                        下一页 >
+                    </div>
+                </div>
+
+                <!--                <div class="commons" id="commons">-->
+
+
+                <!--                    <div class="common">-->
+                <!--                        <div class="common-left">-->
+                <!--                            <img src="images/test.jpg">-->
+                <!--                        </div>-->
+                <!--                        <div class="common-right">-->
+                <!--                            <div class="common-right-content">-->
+                <!--                                <div style="display: flex;position: relative;">-->
+                <!--                                    <div class="common-right-content-name">-->
+                <!--                                        昵称-->
+                <!--                                    </div>-->
+                <!--                                    &nbsp;&nbsp;-->
+                <!--                                    <div class="common-right-content-name">-->
+                <!--                                        2022-10-15-->
+                <!--                                    </div>-->
+                <!--                                    <div class="huifuBuuton">-->
+                <!--                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                                <div class="common-right-content-item">-->
+                <!--                                    谢谢博主-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="common-right-child">-->
+
+                <!--                                <div>-->
+                <!--                                    <div class="common-left">-->
+                <!--                                        <img src="images/test.jpg">-->
+                <!--                                    </div>-->
+                <!--                                    <div class="common-right">-->
+                <!--                                        <div class="common-right-content">-->
+                <!--                                            <div style="display: flex;position: relative;">-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    被回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;&nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    2022-10-15-->
+                <!--                                                </div>-->
+                <!--                                                <div class="huifuBuuton">-->
+                <!--                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                            <div class="common-right-content-item">-->
+                <!--                                                谢谢博主-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+
+                <!--                                <div>-->
+                <!--                                    <div class="common-left">-->
+                <!--                                        <img src="images/test.jpg">-->
+                <!--                                    </div>-->
+                <!--                                    <div class="common-right">-->
+                <!--                                        <div class="common-right-content">-->
+                <!--                                            <div style="display: flex;position: relative;">-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    被回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;&nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    2022-10-15-->
+                <!--                                                </div>-->
+                <!--                                                <div class="huifuBuuton">-->
+                <!--                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                            <div class="common-right-content-item">-->
+                <!--                                                谢谢博主-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+
+                <!--                                <div>-->
+                <!--                                    <div class="common-left">-->
+                <!--                                        <img src="images/test.jpg">-->
+                <!--                                    </div>-->
+                <!--                                    <div class="common-right">-->
+                <!--                                        <div class="common-right-content">-->
+                <!--                                            <div style="display: flex;position: relative;">-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    回复-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    被回复人昵称-->
+                <!--                                                </div>-->
+                <!--                                                &nbsp;&nbsp;-->
+                <!--                                                <div class="common-right-content-name">-->
+                <!--                                                    2022-10-15-->
+                <!--                                                </div>-->
+                <!--                                                <div class="huifuBuuton">-->
+                <!--                                                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                            <div class="common-right-content-item">-->
+                <!--                                                谢谢博主-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+
+
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+
+
+                <!--                </div>-->
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+    if (user != null) {
+        document.getElementById("nav-right").innerHTML =
+            `<div class="nav-right-head">
+                <img src="images/${user.headPortrait}" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter" onclick="location.href='http://localhost:8080/brand-case/personalCenter.html'">
+                个人中心
+            </div>
+            <div class="nav-right-button" onclick="location.href='http://localhost:8080/brand-case/creationBlog.html'">
+                发布
+            </div>`;
+    } else {
+        user = {};
+    }
+
+
+    // 博文信息
+    let blog = {
+        userUid: "",
+        blogTitle: "",
+        blogContent: "",
+        blogCover: "",
+        blogSort: [],
+        blogLabel: [],
+        blogAbstract: "",
+        original: -1,
+        status: 0,
+        blogId: 1,
+        blogDate: "",
+        blogViews: 0,
+        blogLikes: 0,
+        blogCollects: 0,
+        order: 1
+    }
+
+    // 对象为 null 或者 status = 0 则为未关注
+    let friendShip = {
+        id: 0,
+        userUid: "",
+        userFriendUid: "",
+        status: 0
+    };
+    let like = {
+        id: 0,
+        userUid: user.uid,
+        blogId: blog.blogId
+    };
+    let likeStatus = 0;
+    let collect = {
+        id: 0,
+        userUid: user.uid,
+        blogId: blog.blogId
+    };
+    let collectStatus = 0;
+    let authorUser = {};
+
+    function getQueryStringArgs() {
+        //取得查询字符串并去掉开头的问号
+        var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+            //保存数据的对象
+            args = {},
+            //取得每一项
+            items = qs.length ? qs.split("&") : [],
+            item = null,
+            name = null,
+            value = null,
+            //在 for 循环中使用
+            i = 0,
+            len = items.length;
+        //逐个将每一项添加到 args 对象中
+        for (i = 0; i < len; i++) {
+            item = items[i].split("=");
+            name = decodeURIComponent(item[0]);
+            value = decodeURIComponent(item[1]);
+            if (name.length) {
+                args[name] = value;
+            }
+        }
+        return args;
+    }
+
+    // 获取参数（博客ID）
+    var args = getQueryStringArgs();
+
+
+    if (args["blogId"] != "") {
+        // 获取博客信息
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/blog/selectBlogByBlogId?blogId=" + args["blogId"]
+        }).then(function (req) {
+            blog = req.data;
+
+            // 刷新评论信息
+            updateCommons();
+
+            // 将博客内容放进editor中并初始化，得到html
+            $("#blogContent").val(blog.blogContent);
+
+            $(function () {
+                editormd.markdownToHTML("md-content", {
+                    htmlDecode: "style,script,iframe", // you can filter tags decode
+                    emoji: true,
+                    taskList: true,
+                    tex: true, // 默认不解析
+                    flowChart: false, // 默认不解析
+                    sequenceDiagram: true, // 默认不解析
+                    path: "./editormd/lib/",
+                    previewTheme: "dark"
+                });
+            });
+
+            document.getElementById("blog-header").innerHTML =
+                `
+                <div class="blog-header-title">
+                    ${blog.blogTitle}
+                </div>
+                <div class="blog-header-info">
+                    <div class="blog-header-info-main">
+                        <div id="blog-is-original">
+                            <img src="images/reprint.png" alt="original" style="width: 36px;height: 32px;">
+                        </div>
+                        <div id="authorName" style="padding-left: 16px;font-size: 14px;font-weight: 400;margin-right: 20px;">
+                            ${blog.userUid}
+                        </div>
+                        <div style="color: rgb(153,154,170);font-size: 16px;">
+                            <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                            <div style="padding-left: 8px;padding-right: 16px;font-size: 14px;font-weight: 400;">
+                                ${blog.blogDate}
+                            </div>
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            <div style="padding-left: 8px;padding-right: 16px;font-size: 14px;font-weight: 400;">
+                                ${blog.blogViews}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+            if (blog.original) {
+                document.getElementById("blog-is-original").innerHTML =
+                    `
+                    <img src="images/original.png" alt="original" style="width: 36px;height: 32px;">
+                    `;
+            }
+
+            // 获取作者信息
+            axios({
+                method: "get",
+                url: "http://localhost:8080/brand-case/user/selectUserByUid?uid=" + blog.userUid
+            }).then(function (req) {
+                authorUser = req.data;
+
+                document.getElementById("authorName").innerText = authorUser.name;
+
+                document.getElementById("main-left-head").innerHTML =
+                    `
+                    <img src="images/${authorUser.headPortrait}" style="width: 48px;height: 48px;border-radius: 50%;overflow: hidden;">
+                    <div class="main-left-head-info">
+                        <div class="main-left-head-info-name" id="main-left-head-info-name">
+                            ${authorUser.name}
+                        </div>
+                        <div class="main-left-head-info-maAge" id="maAge">
+                            码龄1年
+                        </div>
+                    </div>
+                    `;
+
+                document.getElementById("userSignature").innerText = authorUser.signature;
+
+                document.getElementById("blog-bottom").innerHTML =
+                    `
+                    <div class="blog-bottom-left">
+                        <div class="blog-bottom-left-head">
+                            <img src="images/${authorUser.headPortrait}" alt="images/defaultHead.png">
+                        </div>
+                        <div class="blog-bottom-left-name">
+                            ${authorUser.name}
+                        </div>
+                        <div class="blog-bottom-left-guanzhu" id="guanzhuDiv2" onclick="changeUserFriendShipFunction()">
+                            关注
+                        </div>
+                    </div>
+                    <div class="blog-bottom-right" id="dianzanshoucang">
+                        <div>
+                            <span class="glyphicon glyphicon-heart"  onclick="changeUserLikes()" aria-hidden="true"></span>
+                            ${blog.blogLikes}
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-heart-empty" onclick="changeUserLikes()" aria-hidden="true"></span>
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-star" onclick="changeUserCollects()" aria-hidden="true"></span>
+                            ${blog.blogCollects}
+                        </div>
+                        <div>
+                            <span class="glyphicon glyphicon-star-empty" onclick="changeUserCollects()" aria-hidden="true"></span>
+                        </div>
+
+                    </div>
+                    `;
+
+                // 获取作者的码龄
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/user/maAge?uid=" + authorUser.uid
+                }).then(function (resp) {
+                    let data = resp.data;
+                    document.getElementById("maAge").innerText = `码龄${data}年`;
+                });
+
+                let _this = this;
+
+                // 查询用户是否点赞关注收藏
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/userFriendShip/searchFriendShip?UserUid=" + user.uid + "&UserFriendUid=" + authorUser.uid
+                }).then(function (resp) {
+                    friendShip = resp.data;
+
+                    if (friendShip != null && friendShip.status == 1) {
+                        document.getElementById("guanzhuDiv1").innerText = "已关注~";
+                        document.getElementById("guanzhuDiv2").innerText = "已关注~";
+                    }
+                });
+
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/userLikes/selectUserLikes?userUid=" + user.uid + "&blogId=" + blog.blogId
+                }).then(function (resp) {
+                    if (resp.data != null) {
+                        like = resp.data;
+                        likeStatus = 1;
+
+                        document.getElementById("dianzanshoucang").innerHTML =
+                            `
+                             <div id="likeDiv">
+                                 <span class="glyphicon glyphicon-heart" onclick="changeUserLikes()" style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                                 ${blog.blogLikes}
+                             </div>
+                            `;
+                    } else {
+                        document.getElementById("dianzanshoucang").innerHTML =
+                            `
+                             <div id="likeDiv">
+                                 <span class="glyphicon glyphicon-heart-empty" onclick="changeUserLikes()" aria-hidden="true"></span>
+                                 ${blog.blogLikes}
+                             </div>
+
+                            `;
+                    }
+
+                    axios({
+                        method: "get",
+                        url: "http://localhost:8080/brand-case/userCollects/selectUserCollects?userUid=" + user.uid + "&blogId=" + blog.blogId
+                    }).then(function (resp) {
+
+                        if (resp.data != null) {
+                            collect = resp.data;
+                            collectStatus = 1;
+                            document.getElementById("dianzanshoucang").innerHTML +=
+                                `
+                            <div id="collectDiv">
+                                 <span class="glyphicon glyphicon-star" onclick="changeUserCollects()" style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                                 ${blog.blogCollects}
+                             </div>
+
+                            `;
+                        } else {
+                            document.getElementById("dianzanshoucang").innerHTML +=
+                                `
+                             <div id="collectDiv">
+                                 <span class="glyphicon glyphicon-star-empty" onclick="changeUserCollects()" aria-hidden="true"></span>
+                                 ${blog.blogCollects}
+                             </div>
+                            `;
+                        }
+                    });
+                });
+            });
+        });
+    }
+
+
+    let changeUserFriendShipFunction = function () {
+        if (authorUser == null) {
+            alert("获取不到信息.");
+            return;
+        }
+
+        if (user == null || user.uid == undefined) {
+            alert("请先登录！");
+            location.href = "http://localhost:8080/brand-case/login.html";
+            return;
+        }
+
+        if (user.uid == authorUser.uid) {
+            alert("不可关注自己");
+            return;
+        }
+
+        if (friendShip == null || friendShip.status == 0) {
+            friendShip = {
+                id: 0,
+                userUid: user.uid,
+                userFriendUid: authorUser.uid,
+                status: 1
+            };
+        } else {
+            friendShip.status = 0;
+        }
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/userFriendShip/changeUserFriendShip?UserUid=" + user.uid + "&userFriendUid=" + authorUser.uid + "&status=" + friendShip.status
+        }).then(function (resp) {
+            let data = resp.data;
+            if (data == "ok") {
+                if (friendShip.status == 1) {
+                    console.log("关注成功！");
+                    document.getElementById("guanzhuDiv1").innerText = "已关注~";
+                    document.getElementById("guanzhuDiv2").innerText = "已关注~";
+                } else {
+                    console.log("取消关注成功！");
+                    document.getElementById("guanzhuDiv1").innerText = "关注";
+                    document.getElementById("guanzhuDiv2").innerText = "关注";
+                }
+            }
+        });
+    };
+
+    let changeUserLikes = function () {
+        if (blog == null) {
+            alert("获取不到信息.");
+            return;
+        }
+
+        if (user == null || user.uid == undefined) {
+            alert("请先登录！");
+            location.href = "http://localhost:8080/brand-case/login.html";
+            return;
+        }
+
+        if (likeStatus == 0) {
+            likeStatus = 1;
+        } else {
+            likeStatus = 0;
+        }
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/userLikes/changeUserLikes?userUid=" + user.uid + "&blogId=" + blog.blogId
+        }).then(function (resp) {
+            let data = resp.data;
+            if (data == "ok") {
+                if (likeStatus == 1) {
+                    console.log("点赞成功！");
+                    document.getElementById("likeDiv").innerHTML =
+                        `
+                            <span class="glyphicon glyphicon-heart" onclick="changeUserLikes()" style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                            ${++blog.blogLikes}
+
+                        `;
+                } else {
+                    console.log("取消点赞成功！");
+                    document.getElementById("likeDiv").innerHTML =
+                        `
+
+                            <span class="glyphicon glyphicon-heart-empty" onclick="changeUserLikes()" aria-hidden="true"></span>
+                            ${--blog.blogLikes}
+
+                        `;
+                }
+            }
+        });
+    };
+
+
+    let changeUserCollects = function () {
+        if (blog == null) {
+            alert("获取不到信息.");
+            return;
+        }
+
+        if (user == null || user.uid == undefined) {
+            alert("请先登录！");
+            location.href = "http://localhost:8080/brand-case/login.html";
+            return;
+        }
+
+        if (collectStatus == 0) {
+            collectStatus = 1;
+        } else {
+            collectStatus = 0;
+        }
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/userCollects/changeUserCollects?userUid=" + user.uid + "&blogId=" + blog.blogId
+        }).then(function (resp) {
+            let data = resp.data;
+            if (data == "ok") {
+                if (collectStatus == 1) {
+                    console.log("收藏成功！");
+
+                    document.getElementById("collectDiv").innerHTML =
+                        `
+                        <span class="glyphicon glyphicon-star" onclick="changeUserCollects()" style="color: rgb(252,85,49);" aria-hidden="true"></span>
+                            ${++blog.blogCollects}
+                        `;
+                } else {
+                    console.log("取消收藏成功！");
+
+                    document.getElementById("collectDiv").innerHTML =
+                        `
+                        <span class="glyphicon glyphicon-star-empty" onclick="changeUserCollects()" aria-hidden="true"></span>
+                            ${--blog.blogCollects}
+                        `;
+                }
+            }
+        });
+    };
+
+    // 监听回车
+    $('#q').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            if (document.getElementById("q").value.length != 0) {
+                location.href = 'http://localhost:8080/brand-case/search.html?q=' + document.getElementById("q").value + "&u=" + authorUser.uid;
+            } else {
+                alert("请输入搜素内容");
+            }
+        }
+    });
+
+    // 监听回车
+    $('#searchInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            document.getElementById("searchButton").click();
+        }
+    });
+
+    // 设置搜索点击事件
+    document.getElementById("searchButton").addEventListener("click", function () {
+        if (document.getElementById("searchInput").value.length != 0)
+            location.href = 'http://localhost:8080/brand-case/search.html?q=' + document.getElementById("searchInput").value;
+        else
+            alert("请输入搜素内容")
+    });
+
+
+    let curPage = 1;
+    let commons = {"currentPage": 2, "list": [], "pageSize": 5, "totalCount": 0, "totalPage": 0};
+    let lis = "";
+
+    function updateCommons() {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/common/selectRootByBlogId?blogId=" + blog.blogId + "&page=" + curPage
+        }).then(function (resp) {
+            commons = resp.data;
+
+            lis = "";
+            if (commons.list != null) {
+                for (let i = 0; i < commons.list.length; i++) {
+                    lis +=
+                        `<div class="common">
+                        <div class="common-left commonHeadImg-${commons.list[i].userUid}">
+                            <img src="images/test.jpg">
+                        </div>
+                        <div class="common-right">
+                            <div class="common-right-content">
+                                <div style="display: flex;position: relative;">
+                                    <div class="common-right-content-name commonName-${commons.list[i].userUid}">
+                                        昵称
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="common-right-content-name">
+                                        ${commons.list[i].date}
+                                    </div>
+                                    <div class="huifuBuuton" onclick="changeCommonFunction(${commons.list[i].id}, ${commons.list[i].id}, ${commons.list[i].userUid});">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="common-right-content-item">
+                                    ${commons.list[i].content}
+                                </div>
+                            </div>
+                            <div class="common-right-child">`;
+                    if (commons.list[i].childs != null && commons.list[i].childs.length != 0)
+                        for (let j = 0; j < commons.list[i].childs.length; j++)
+                            lis +=
+                                `<div>
+                                 <div class="common-left commonHeadImg-${commons.list[i].childs[j].userUid}">
+                                     <img src="images/test.jpg">
+                                 </div>
+                                 <div class="common-right">
+                                     <div class="common-right-content">
+                                         <div style="display: flex;position: relative;">
+                                             <div class="common-right-content-name commonName-${commons.list[i].childs[j].userUid}">
+                                                 回复人昵称
+                                             </div>
+                                             &nbsp;
+                                             <div class="common-right-content-name">
+                                                 回复
+                                             </div>
+                                             &nbsp;
+                                             <div class="common-right-content-name commonName-${commons.list[i].childs[j].parentUserUid}">
+                                                 被回复人昵称
+                                             </div>
+                                             &nbsp;&nbsp;
+                                             <div class="common-right-content-name">
+                                                 ${commons.list[i].childs[j].date}
+                                             </div>
+                                             <div class="huifuBuuton" onclick="changeCommonFunction(${commons.list[i].id}, ${commons.list[i].childs[j].id}, ${commons.list[i].childs[j].userUid});">
+                                                 <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                                             </div>
+                                         </div>
+                                         <div class="common-right-content-item">
+                                             ${commons.list[i].childs[j].content}
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>`;
+
+                    lis += `</div></div></div></div>`;
+                    document.getElementById("commons").innerHTML = lis;
+                }
+                changeNameAndHead();
+                changePage();
+
+                window.scrollTo(0, 0);
+            }
+        })
+    }
+
+    let changeNameAndHead = function () {
+        if (commons.list != null)
+            for (let i = 0; i < commons.list.length; i++) {
+                let otherUid = commons.list[i].userUid;
+
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/user/selectUserByUid?uid=" + otherUid
+                }).then(function (resp) {
+                    let commoner = resp.data;
+                    if (commoner != null) {
+                        $(".commonName-" + otherUid).text(commoner.name);
+                        $(".commonHeadImg-" + otherUid).html(`<img src="images/${commoner.headPortrait}">`);
+                    }
+                });
+
+                if (commons.list[i].childs != null && commons.list[i].childs.length != 0)
+                    for (let j = 0; j < commons.list[i].childs.length; j++) {
+                        otherUid = commons.list[i].childs[j].userUid;
+
+                        axios({
+                            method: "get",
+                            url: "http://localhost:8080/brand-case/user/selectUserByUid?uid=" + otherUid
+                        }).then(function (resp) {
+                            let commoner = resp.data;
+                            if (commoner != null) {
+                                $(".commonName-" + otherUid).text(commoner.name);
+                                $(".commonHeadImg-" + otherUid).html(`<img src="images/${commoner.headPortrait}">`);
+                            }
+                        });
+                    }
+            }
+    };
+
+    // 改变分页的数目
+    let changePage = function () {
+        let innerHTML = "";
+        if (curPage != 1)
+            innerHTML = `<div onclick="lastPageSearch()">
+                             < 上一页
+                         </div>`;
+        for (let i = 0; i < commons.totalPage; i++) {
+            innerHTML +=
+                `<div onclick="curPage = ${i + 1};updateCommons();">
+                     ${i + 1}
+                 </div>`;
+        }
+        if (curPage != commons.totalPage)
+            innerHTML +=
+                `<div onclick="nextPageSearch()">
+                 下一页 >
+             </div>`;
+        document.getElementById("pagingIndex").innerHTML = innerHTML;
+    }
+
+    // 评论的变量
+    let common = {
+        rootId: 0,
+        parentId: 0,
+        parentUserUid: "",
+        content: "",
+        blogId: blog.blogId,
+        userUid: ""
+    };
+    let changeCommonFunction = function (rootId, parentId, parentUid) {
+        if (user == null) {
+            alert("请先登录！")
+            location.href = 'http://localhost:8080/brand-case/login.html';
+        }
+
+        common.rootId = rootId;
+        common.parentId = parentId;
+        common.parentUserUid = parentUid;
+
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/user/selectUserByUid?uid=" + parentUid
+        }).then(function (resp) {
+            let commoner = resp.data;
+            if (commoner != null) {
+                document.getElementById("commonInput").placeholder = "回复：" + resp.data.name;
+                document.getElementById("commonInput").focus();
+            }
+        });
+
+        window.scrollTo(0, 0);
+    }
+
+    let addCommonFunction = function () {
+        common.content = document.getElementById("commonInput").value;
+        common.userUid = user.uid;
+        common.blogId = blog.blogId;
+
+        if (common.content == "") {
+            alert("请留下评论~")
+            return;
+        }
+
+        let path = "addChildCommon";
+        if (common.rootId == 0) {
+            path = "addRootCommon";
+        }
+
+        axios({
+            method: "post",
+            url: "http://localhost:8080/brand-case/common/" + path,
+            data: common
+        }).then(function (resp) {
+            if ("ok" == resp.data) {
+                updateCommons();
+                document.getElementById("commonInput").value = "";
+            }
+        })
+    }
+
+
+    // 监听回车
+    $('#commonInput').bind('keyup', function (event) {
+        if (event.keyCode == "13") {
+            addCommonFunction();
+        } else {
+            let number = 200 - document.getElementById("commonInput").value.length;
+            if (number >= 0)
+                document.getElementById("commonMsg").innerText = `还可以输入 ${number} 个字符`;
+            else {
+                document.getElementById("commonInput").value = document.getElementById("commonInput").value.substring(0, 200);
+                number = 200;
+            }
+        }
+    });
+
+    // 返回评论的上一页
+    let lastPageSearch = function () {
+        if (!--curPage) {
+            curPage = 1;
+        }
+        updateCommons();
+    }
+
+    // 去评论的下一页
+    let nextPageSearch = function () {
+        if (curPage++ == commons.totalPage) {
+            curPage = commons.totalPage;
+        }
+        updateCommons();
+    }
+
+</script>
+
+</body>
+</html>

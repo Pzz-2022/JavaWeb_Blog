@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="user">
+        <result property="headPortrait" column="head_portrait"/>
+    </resultMap>
+
+    <insert id="addUser">
+        insert into user(uid, name, password, email, head_portrait, permission, gender, birthday, signature)
+        values (#{uid}, #{name}, #{password}, #{email}, #{headPortrait}, 1, #{gender}, #{birthday}, #{signature});
+    </insert>
+
+
+    <update id="updateUser">
+        update user
+        set name      = #{name},
+            gender    = #{gender},
+            signature = #{signature},
+            birthday  = #{birthday}
+        where uid = #{uid};
+    </update>
+
+    <update id="updateHeadPortrait">
+        update user
+        set head_portrait = #{imgName}
+        where uid = #{uid};
+    </update>
+
+    <update id="updateUserSignature">
+        update user
+        set signature = '这个少年很懒...'
+        where signature IS NULL
+           or signature = '';
+    </update>
+
+    <update id="updatePermission">
+        update user
+        set permission = #{permission}
+        where uid = #{uid};
+    </update>
+
+    <select id="selectUserByUID" resultMap="userResultMap">
+        select *
+        from user
+        where uid = #{uid}
+        limit 1;
+    </select>
+
+    <select id="selectUserByName" resultMap="userResultMap">
+        select *
+        from user
+        where name = #{name}
+        limit 1;
+    </select>
+
+    <select id="selectUserByEmail" resultMap="userResultMap">
+        select *
+        from user
+        where email = #{email}
+        limit 1;
+    </select>
+
+    <select id="login" resultMap="userResultMap">
+        select *
+        from user
+        where uid = #{uid}
+           or email = #{email}
+        limit 1;
+    </select>
+
+    <select id="selectUserByLike" resultMap="userResultMap">
+        select uid,
+               name,
+               email,
+               head_portrait,
+               permission,
+               gender,
+               signature,
+               birthday
+        from user
+        where (uid like #{q}
+            or name like #{q}
+            or signature like #{q})
+          and permission > 0
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectUserByLikeTotal" resultType="java.lang.Integer">
+        select count(*)
+        from user
+        where uid like #{q}
+           or name like #{q}
+           or signature like #{q};
+    </select>
+
+    <select id="selectUserByUserFocus" resultMap="userResultMap">
+        select uid,
+               name,
+               email,
+               head_portrait,
+               permission,
+               gender,
+               signature,
+               birthday
+        from user
+        where uid in (select user_friend_ship.user_friend_uid
+                      from user_friend_ship
+                      where user_friend_ship.user_uid = #{u}
+                        and user_friend_ship.status = 1)
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectUserByUserFocusTotal" resultType="java.lang.Integer">
+        select count(*)
+        from user_friend_ship
+        where user_uid = #{u}
+          and status = 1;
+    </select>
+
+    <select id="selectUserByFocusUser" resultMap="userResultMap">
+        select uid,
+               name,
+               email,
+               head_portrait,
+               permission,
+               gender,
+               signature,
+               birthday
+        from user
+        where uid in (select user_friend_ship.user_uid
+                      from user_friend_ship
+                      where user_friend_ship.user_friend_uid = #{u}
+                        and user_friend_ship.status = 1)
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectUserByFocusUserTotal" resultType="java.lang.Integer">
+        select count(*)
+        from user_friend_ship
+        where user_friend_uid = #{u}
+          and status = 1;
+    </select>
+
+
+</mapper>

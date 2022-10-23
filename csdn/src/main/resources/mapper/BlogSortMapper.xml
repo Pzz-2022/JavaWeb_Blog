@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BlogSortMapper">
+
+    <resultMap id="blogSortResultMap" type="blogSort">
+        <result property="blogId" column="blog_id"/>
+        <result property="sortId" column="sort_id"/>
+    </resultMap>
+
+    <insert id="addBlogSort" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_sort (blog_id, sort_id)
+        VALUES (#{blogId}, #{sortId});
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="css/creationBlog.css">
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+
+    <link rel="stylesheet" href="editormd/css/editormd.css"/>
+    <script src="editormd/editormd.min.js"></script>
+
+    <script src="editormd/lib/marked.min.js"></script>
+    <script src="editormd/lib/prettify.min.js"></script>
+    <script src="editormd/lib/raphael.min.js"></script>
+    <script src="editormd/lib/flowchart.min.js"></script>
+    <script src="editormd/lib/jquery.flowchart.min.js"></script>
+    <script src="editormd/lib/underscore.min.js"></script>
+    <script src="editormd/lib/sequence-diagram.min.js"></script>
+
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+</head>
+
+
+<body>
+<div class="container">
+
+    <div id="test-editormd-view" style="width:700px;" class="blog-single-desc">
+        <textarea style="display:none;" id="test-editormd-markdown-doc">
+
+        </textarea>
+    </div>
+
+</div>
+
+
+<!--<script>-->
+<!--    function getQueryStringArgs() {-->
+<!--        //取得查询字符串并去掉开头的问号-->
+<!--        var qs = (location.search.length > 0 ? location.search.substring(1) : ""),-->
+<!--            //保存数据的对象-->
+<!--            args = {},-->
+<!--            //取得每一项-->
+<!--            items = qs.length ? qs.split("&") : [],-->
+<!--            item = null,-->
+<!--            name = null,-->
+<!--            value = null,-->
+<!--            //在 for 循环中使用-->
+<!--            i = 0,-->
+<!--            len = items.length;-->
+<!--        //逐个将每一项添加到 args 对象中-->
+<!--        for (i = 0; i < len; i++) {-->
+<!--            item = items[i].split("=");-->
+<!--            name = decodeURIComponent(item[0]);-->
+<!--            value = decodeURIComponent(item[1]);-->
+<!--            if (name.length) {-->
+<!--                args[name] = value;-->
+<!--            }-->
+<!--        }-->
+<!--        return args;-->
+<!--    }-->
+
+<!--    var args = getQueryStringArgs();-->
+<!--    alert(args["q"]); //“javascript”-->
+<!--    alert(args["num"]); //“10”-->
+
+<!--</script>-->
+
+
+<!--<script>-->
+<!--    $(function () {-->
+<!--        editormd.markdownToHTML("test-editormd-view", {-->
+<!--            htmlDecode: "style,script,iframe", // you can filter tags decode-->
+<!--            emoji: true,-->
+<!--            taskList: true,-->
+<!--            tex: true, // 默认不解析-->
+<!--            flowChart: false, // 默认不解析-->
+<!--            sequenceDiagram: true, // 默认不解析-->
+<!--            path: "./editormd/lib/",-->
+
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
+<script>
+    $(function() {
+        editormd.markdownToHTML("test-editormd-view", {
+            htmlDecode: "style,script,iframe", // you can filter tags decode
+            emoji: true,
+            taskList: true,
+            tex: true, // 默认不解析
+            flowChart: false, // 默认不解析
+            sequenceDiagram: true, // 默认不解析
+            path: "./editormd/lib/",
+            previewTheme: "dark"
+        });
+    });
+
+    $("#test-editormd-markdown-doc").val("#第一篇博客");
+</script>
+
+
+
+</body>
+</html>

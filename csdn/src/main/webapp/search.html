@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSDN - 搜索</title>
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/search.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+
+</head>
+<body>
+<div id="app">
+    <!-- 顶部导航条 -->
+    <div id="nav">
+
+        <div class="nav-left">
+            <a href="index.html" class="nav-left-img">
+                <img title="首页" src="images/logo1.png">
+            </a>
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+        </div>
+        <!--搜索栏    -->
+        <div class="nav-center">
+            <div class="nav-center-search">
+                <div class="nav-center-search-radius">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </div>
+                <input type="text" placeholder="代码改变世界" id="searchInput">
+                <div class="nav-center-search-button" id="searchButton" onclick="search(1)">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    搜索
+                </div>
+            </div>
+        </div>
+        <div class="nav-right" id="nav-right">
+            <div class="nav-right-login" onclick="location.href='http://localhost:8080/brand-case/login.html'">
+                登录/注册
+            </div>
+            <div class="nav-right-head">
+                <img src="images/defaultHead.png" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter">
+                个人中心
+            </div>
+            <div class="nav-right-leave" id="nav-right-leave">
+                退出登录
+            </div>
+            <div class="nav-right-button" onclick="location.href='creationBlog.html'">
+                发布
+            </div>
+        </div>
+    </div>
+
+    <!--  头部分类导航（作废为布局）  -->
+    <div id="header">
+        <div class="header-center">
+        </div>
+    </div>
+
+    <!-- 主体区域 -->
+    <div id="main">
+        <div class="main-main">
+            <div class="main-left">
+                <!--    侧边栏导航    -->
+                <div class="main-left-center">
+                </div>
+            </div>
+
+
+            <div class="main-center">
+                <div id="t-nav">
+                    <div id="list-t">
+                        <div id="blogDiv" onclick="javascript:t='blog';changeT();search(1);">
+                            博客
+                        </div>
+                        <div id="userDiv" onclick="javascript:t='user';changeT();search(1);">
+                            用户
+                        </div>
+                    </div>
+                </div>
+
+                <!--    博文主体部分    -->
+                <div class="main-center-top" id="blogs">
+                    <!--                    &lt;!&ndash;    一个一个的博文div    &ndash;&gt;-->
+                    <!--                    <div class="user">-->
+                    <!--                        <div class="user-left">-->
+                    <!--                            <img src="images/test.jpg">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="user-center">-->
+                    <!--                            <div class="user-center-name">-->
+                    <!--                                Name-->
+                    <!--                            </div>-->
+                    <!--                            <div class="user-center-signature">-->
+                    <!--                                ${user.signature}-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="user-right">-->
+                    <!--                            关注-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
+                    <!--                    &lt;!&ndash;    一个一个的博文div    &ndash;&gt;-->
+                    <!--                    <div class="blog">-->
+                    <!--                        &lt;!&ndash;   博文的标题    &ndash;&gt;-->
+                    <!--                        <div class="blog-title">-->
+                    <!--                            <a href="">作业帮董晓聪：作业帮云原生降本增效实践之路</a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="blog-center">-->
+                    <!--                            &lt;!&ndash;    左边放图片    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-left">-->
+                    <!--                                <img class="blog-center-left-img"-->
+                    <!--                                     src="https://img-blog.csdnimg.cn/d4acc58ed8b546c2b907c1f9e5ad5dbf.png?x-oss-process=image/format,png">-->
+                    <!--                            </div>-->
+                    <!--                            &lt;!&ndash;    右边放内容    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-right">-->
+                    <!--                                &lt;!&ndash;    上面放文章首段    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-content">-->
+                    <!--                                    <p>充分释放云潜力，企业降本不降质</p>-->
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash;    底部放点赞收藏    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-bottom">-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-heart-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="like">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-star-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="collect">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="blog-center-right-bottom-author">-->
+                    <!--                                        <a href="">-->
+                    <!--                                            <span>作者：小唐同学</span>-->
+                    <!--                                        </a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <!--                    &lt;!&ndash;    一个一个的博文div    &ndash;&gt;-->
+                    <!--                    <div class="blog">-->
+                    <!--                        &lt;!&ndash;   博文的标题    &ndash;&gt;-->
+                    <!--                        <div class="blog-title">-->
+                    <!--                            <a href="">作业帮董晓聪：作业帮云原生降本增效实践之路</a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="blog-center">-->
+                    <!--                            &lt;!&ndash;    左边放图片    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-left">-->
+                    <!--                                <img class="blog-center-left-img"-->
+                    <!--                                     src="https://img-blog.csdnimg.cn/ecaa0cb43f954d1ea1fb0cc6698ca53e.png?x-oss-process=image/resize,m_fixed,h_300,image/format,png">-->
+                    <!--                            </div>-->
+                    <!--                            &lt;!&ndash;    右边放内容    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-right">-->
+                    <!--                                &lt;!&ndash;    上面放文章首段    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-content">-->
+                    <!--                                    <span>充分释放云潜力，企业降本不降质</span>-->
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash;    底部放点赞收藏    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-bottom">-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-heart-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="like">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-star-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="collect">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="blog-center-right-bottom-author">-->
+                    <!--                                        <a href="">-->
+                    <!--                                            <span>作者：小唐同学</span>-->
+                    <!--                                        </a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    <!--                    &lt;!&ndash;    一个一个的博文div    &ndash;&gt;-->
+                    <!--                    <div class="blog">-->
+                    <!--                        &lt;!&ndash;   博文的标题    &ndash;&gt;-->
+                    <!--                        <div class="blog-title">-->
+                    <!--                            <a href="">反思: Google 为何把 SurfaceView 设计的这么难用？</a>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="blog-center">-->
+                    <!--                            &lt;!&ndash;    左边放图片    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-left" style="display: none">-->
+                    <!--                                <img class="blog-center-left-img" src="">-->
+                    <!--                            </div>-->
+                    <!--                            &lt;!&ndash;    右边放内容    &ndash;&gt;-->
+                    <!--                            <div class="blog-center-right">-->
+                    <!--                                &lt;!&ndash;    上面放文章首段    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-content">-->
+                    <!--                                    <span>-->
+                    <!--                                        如果你有过SurfaceView的使用经历，那么你一定和我一样，曾经被它所引发出层出不穷的异状折磨的怀疑人生—— 毕竟，作为一个有理想的开发者，在深入了解 SurfaceView之前，你很难想通这样一个问题： 为什么 Google 把 SurfaceView 设计的这么难用？-->
+                    <!--                                    </span>-->
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash;    底部放点赞收藏    &ndash;&gt;-->
+                    <!--                                <div class="blog-center-right-bottom">-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-heart-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="like">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div>-->
+                    <!--                                        <span class="glyphicon glyphicon-star-empty blog-center-right-bottom-icon"-->
+                    <!--                                              aria-hidden="true"></span>-->
+                    <!--                                        &lt;!&ndash;                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&ndash;&gt;-->
+                    <!--                                        <span class="collect">2</span>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="blog-center-right-bottom-author">-->
+                    <!--                                        <a href="">-->
+                    <!--                                            <span>作者：小唐同学</span>-->
+                    <!--                                        </a>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+                    暂无内容~
+                </div>
+                <!--    分页导航条    -->
+                <div class="main-center-bottom" id="pagingIndex">
+                    <div onclick="lastPageSearch()">
+                        < 上一页
+                    </div>
+                    <div onclick="search(1)">
+                        1
+                    </div>
+                    <div onclick="search(2)">
+                        2
+                    </div>
+                    <div>
+                        3
+                    </div>
+                    <div>
+                        4
+                    </div>
+                    <div>
+                        5
+                    </div>
+                    <div>
+                        6
+                    </div>
+                    <div>
+                        7
+                    </div>
+                    <div>
+                        8
+                    </div>
+                    <div>
+                        9
+                    </div>
+                    <div>
+                        10
+                    </div>
+                    <div onclick="nextPageSearch()">
+                        下一页 >
+                    </div>
+
+                </div>
+            </div>
+
+            <!--右侧榜单    -->
+            <div class="main-right">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+
+<script>
+    // 加载本地的user对象
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+    if (user != null && user != "null") {
+        document.getElementById("nav-right").innerHTML =
+            " <div class=\"nav-right-head\">\n" +
+            "                <img src=\"images/" + user.headPortrait + "\"  alt=\"head\" class=nav-right-head-img>\n" +
+            "            </div>\n" +
+            "            <div class=\"nav-right-personalCenter\" id=\"personalCenter\">\n" +
+            "                个人中心\n" +
+            "            </div>\n" +
+            "<div class=\"nav-right-leave\" id=\"nav-right-leave\">\n" +
+            "                退出登录\n" +
+            "            </div>" +
+            "            <div class=\"nav-right-button\" onclick=\"location.href='http://localhost:8080/brand-case/creationBlog.html'\">\n" +
+            "                发布\n" +
+            "            </div>";
+    } else {
+        document.getElementById("nav-right").innerHTML =
+            "<div class=\"nav-right-login\" onclick=\"location.href='http://localhost:8080/brand-case/login.html'\">\n" +
+            "                登录/注册\n" +
+            "            </div>\n" +
+            "            <div class=\"nav-right-button\">\n" +
+            "                发布\n" +
+            "            </div>";
+    }
+
+
+    let elementById = document.getElementById("personalCenter");
+    if (elementById != null)
+        elementById.addEventListener("click", function () {
+            location.href = "http://localhost:8080/brand-case/personalCenter.html";
+        })
+
+    if (document.getElementById("nav-right-leave") != null)
+        document.getElementById("nav-right-leave").onclick = function () {
+            localStorage.clear();
+            axios({
+                method: "get",
+                url: "http://localhost:8080/brand-case/user/leave"
+            })
+            location.href = "http://localhost:8080/brand-case/";
+        }
+
+
+    function getQueryStringArgs() {
+        //取得查询字符串并去掉开头的问号
+        var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+            //保存数据的对象
+            args = {},
+            //取得每一项
+            items = qs.length ? qs.split("&") : [],
+            item = null,
+            name = null,
+            value = null,
+            //在 for 循环中使用
+            i = 0,
+            len = items.length;
+        //逐个将每一项添加到 args 对象中
+        for (i = 0; i < len; i++) {
+            item = items[i].split("=");
+            name = decodeURIComponent(item[0]);
+            value = decodeURIComponent(item[1]);
+            if (name.length) {
+                args[name] = value;
+            }
+        }
+        return args;
+    }
+
+    // 获取参数（搜索的信息）
+    var args = getQueryStringArgs();
+
+    // 搜索模块
+    let PageBean = {};
+    let lis = "";
+    let curPage = 1;
+    let q = "";
+    let t = "blog";
+    let u = "";
+    let sort = 0;
+    let label = 0;
+    let _this = this;
+    if (args["q"] != null && args["q"] != "") {
+        q = args["q"];
+    }
+    if (args["sort"] != null && args["sort"] != "") {
+        sort = args["sort"];
+    }
+    if (args["label"] != null && args["label"] != "") {
+        label = args["label"];
+    }
+    let nonContent = `<div style="height: 50px;display: flex;justify-content: center;align-items: center;">
+                          暂无内容~
+                      </div>`;
+
+    changeT();
+    search(1);
+
+    // 监听回车
+    $('#searchInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            if (document.getElementById("searchInput").value.length != 0) {
+                location.href = 'http://localhost:8080/brand-case/search.html?q=' + document.getElementById("searchInput").value;
+            } else {
+                alert("请输入搜素内容");
+            }
+        }
+    });
+
+    function search(page) {
+        curPage = page;
+
+        if (q == undefined) {
+            q = "";
+        }
+        if (document.getElementById("searchInput").value != "") {
+            q = document.getElementById("searchInput").value;
+        } else {
+            document.getElementById("searchInput").value = q;
+        }
+
+        if (t == "blog") {
+            axios({
+                method: "get",
+                url: "http://localhost:8080/brand-case/blog/selectAllByLikeAndUid?q=" + q + "&u=" + u + "&page=" + page
+                    + "&sort=" + sort + "&label=" + label
+            }).then(function (resp) {
+                PageBean = resp.data;
+
+                updateBlogs();
+            });
+        } else {
+            axios({
+                method: "get",
+                url: "http://localhost:8080/brand-case/user/selectUserByLike?q=" + q + "&page=" + page
+            }).then(function (resp) {
+                PageBean = resp.data;
+
+                updateUsers();
+            });
+        }
+    }
+
+    function updateBlogsAttribute(q) {
+        let replaceStr = "<span style='color: red;'>" + q + "</span>";
+        if (PageBean.list != null) {
+            for (let i = 0; i < PageBean.list.length; i++) {
+                if (PageBean.list[i].blogAbstract.length > 130) {
+                    PageBean.list[i].blogAbstract = PageBean.list[i].blogAbstract.substring(0, 130) + "...";
+                }
+                if (q != "") {
+                    PageBean.list[i].blogAbstract = PageBean.list[i].blogAbstract.replaceAll(q, replaceStr);
+                    PageBean.list[i].blogTitle = PageBean.list[i].blogTitle.replaceAll(q, replaceStr);
+                }
+            }
+        }
+    }
+
+    // 把博客更新上页面
+    function updateBlogs() {
+        updateBlogsAttribute(q);
+
+        lis = ``;
+        if (PageBean.list != null && PageBean.list.length != 0) {
+            for (let i = 0; i < PageBean.list.length; i++) {
+                let li = `<div class="blog">
+                            <div class="blog-title">
+                                <a target="_blank" href="http://localhost:8080/brand-case/blog.html?blogId=${PageBean.list[i].blogId}">${PageBean.list[i].blogTitle}</a>
+                            </div>
+                          <div class="blog-center">`;
+                if (PageBean.list[i].blogCover != "") {
+                    li += `<div class="blog-center-left">
+                                <img class="blog-center-left-img" src="images/${PageBean.list[i].blogCover}">
+                            </div>`;
+                }
+                li +=
+                    `
+                <div class="blog-center-right">
+                            <div class="blog-center-right-content">
+                                <p>${PageBean.list[i].blogAbstract}</p>
+                            </div>
+                            <div class="blog-center-right-bottom">
+                                <div>
+                                    <span class="glyphicon glyphicon-heart-empty blog-center-right-bottom-icon"
+                                          aria-hidden="true"></span>
+                                    <span class="like">${PageBean.list[i].blogLikes}</span>
+                                </div>
+                                <div>
+                                    <span class="glyphicon glyphicon-star-empty blog-center-right-bottom-icon"
+                                          aria-hidden="true"></span>
+                                    <span class="collect">${PageBean.list[i].blogCollects}</span>
+                                </div>
+                                <div class="blog-center-right-bottom-author">
+                                    <a href="http://localhost:8080/brand-case/otherCenter.html?uid=${PageBean.list[i].userUid}">
+                                        <span class="author-name-${PageBean.list[i].userUid}">作者：${PageBean.list[i].userUid}</span>
+                                    </a>
+                                </div>`
+                if (user != null && (user.uid == PageBean.list[i].userUid || user.permission > 1)) {
+                    li += `
+                    <div class="blog-center-right-bottom-author" style="margin-left: 16px;">
+                        <a href="http://localhost:8080/brand-case/updateBlog.html?blogId=${PageBean.list[i].blogId}">
+                            <span>编辑</span>
+                        </a>
+                    </div>
+                    <div class="blog-center-right-bottom-author" onclick="deleteBlogFunction(${PageBean.list[i].blogId});" style="cursor:pointer;">
+                        <a>
+                            <span>删除</span>
+                        </a>
+                    </div>`;
+                }
+
+                li += `
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                lis += li;
+            }
+            document.getElementById("blogs").innerHTML = lis;
+        } else {
+            document.getElementById("blogs").innerHTML = nonContent;
+        }
+
+        changeAuthorName();
+        changePage();
+    }
+
+    function updateUsers() {
+        lis = ``;
+        if (PageBean.list != null && PageBean.list.length != 0) {
+            for (let i = 0; i < PageBean.list.length; i++) {
+                // 将搜索内容调为高亮
+                let replaceStr = "<span style='color: red;'>" + q + "</span>";
+                if (q != "") {
+                    PageBean.list[i].name = PageBean.list[i].name.replaceAll(q, replaceStr);
+                    PageBean.list[i].signature = PageBean.list[i].signature.replaceAll(q, replaceStr);
+                }
+
+                let li =
+                    `
+                <div class="user">
+                    <div class="user-left">
+                        <img src="images/${PageBean.list[i].headPortrait}">
+                    </div>
+                    <div class="user-center">
+                        <div class="user-center-name" onclick="location.href='http://localhost:8080/brand-case/otherCenter.html?uid=${PageBean.list[i].uid}'">
+                            ${PageBean.list[i].name}
+                        </div>
+                        <div class="user-center-signature">
+                            ${PageBean.list[i].signature}
+                            `;
+                if (user.permission > 1){
+                    li +=
+                        `<div class="blog-center-right-bottom-author" onclick="deleteUser('${PageBean.list[i].uid}', 0)" style="cursor:pointer;margin-left: 28px;">
+                             <span>删除</span>
+                         </div>`;
+                }
+                li +=
+                    `
+                        </div>
+                    </div>
+                    <div class="user-right guanzhuButton" id="user-${PageBean.list[i].uid}" onclick="clickGuanzhuFunction('${PageBean.list[i].uid}')">
+                        关注
+                    </div>
+                </div>
+                `;
+                lis += li;
+            }
+            document.getElementById("blogs").innerHTML = lis;
+        } else {
+            document.getElementById("blogs").innerHTML = nonContent;
+        }
+
+        changeGuanzhu();
+        changePage();
+    }
+
+    let changeAuthorName = function () {
+        if (PageBean.list != null)
+            for (let i = 0; i < PageBean.list.length; i++) {
+                let otherUid = PageBean.list[i].userUid;
+
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/user/selectUserByUid?uid=" + otherUid
+                }).then(function (resp) {
+                    let author = resp.data;
+                    if (author != null) {
+                        $(".author-name-" + otherUid).text("作者：" + author.name);
+                    }
+                });
+            }
+    };
+
+    let changeGuanzhu = function () {
+        if (PageBean.list != null)
+            for (let i = 0; i < PageBean.list.length; i++) {
+                let otherUid = PageBean.list[i].uid;
+                console.log(otherUid + "关注")
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/userFriendShip/searchFriendShip?UserUid=" + user.uid + "&UserFriendUid=" + otherUid
+                }).then(function (resp) {
+                    if (resp.data != null && resp.data.status == 1) {
+                        $("#user-" + otherUid).addClass("is-guanzhu");
+                        document.getElementById("user-" + otherUid).innerText = "已关注~";
+                    }
+                });
+            }
+    }
+
+    let changePage = function () {
+        lis = `<div onclick="lastPageSearch()">
+                  < 上一页
+               </div>`;
+        let beginPage = curPage - 5;
+        let endPage = curPage + 4;
+        if (PageBean.totalPage <= 10) {
+            beginPage = 1;
+            endPage = PageBean.totalPage;
+        } else {
+            if (beginPage < 1) {
+                beginPage = 1;
+                endPage = 10;
+            }
+            if (endPage > PageBean.totalPage) {
+                endPage = PageBean.totalPage;
+                beginPage = endPage - 9;
+            }
+        }
+        for (let i = beginPage; i <= endPage; i++) {
+            let li;
+            if (i == curPage) {
+                li =
+                    `<div onclick="search(${i})" id="selectPage">
+                         ${i}
+                     </div>`;
+            } else {
+                li =
+                    `<div onclick="search(${i})">
+                         ${i}
+                     </div>`;
+            }
+            lis += li;
+        }
+        lis +=
+            `<div onclick="nextPageSearch()">
+                 下一页 >
+             </div>`;
+        lis +=
+            `<input type="number" style="width: 120px;" class="form-control" id="curPageInput" placeholder="请输入跳转">
+             <div style="margin-left: 10px;">共 ${PageBean.totalPage} 页</div>`;
+        document.getElementById("pagingIndex").innerHTML = lis;
+
+
+        window.scrollTo(0, 0);
+    }
+
+    let lastPageSearch = function () {
+        if (--curPage == 0) {
+            curPage = 1;
+        }
+
+        search(curPage);
+    }
+
+    let nextPageSearch = function () {
+        if (curPage++ == PageBean.totalPage) {
+            curPage = PageBean.totalPage;
+        }
+
+        search(curPage);
+    }
+
+    function changeT() {
+        if (t == "blog") {
+            $("#blogDiv").addClass("selectDiv");
+            $("#userDiv").removeClass("selectDiv");
+        } else if (t == "user") {
+            $("#userDiv").addClass("selectDiv");
+            $("#blogDiv").removeClass("selectDiv");
+        }
+    }
+
+    let clickGuanzhuFunction = function (UserFriendUid) {
+        if (user.uid == UserFriendUid) {
+            alert("不能关注自己！");
+            return;
+        }
+
+        let status = 1;
+        if ($("#user-" + UserFriendUid).hasClass("is-guanzhu")) {
+            status = 0;
+        }
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/userFriendShip/changeUserFriendShip?UserUid=" + user.uid + "&UserFriendUid=" + UserFriendUid + "&status=" + status
+        }).then(function (resp) {
+            if ("ok" == resp.data) {
+                document.getElementById("user-" + UserFriendUid).innerText = status == 1 ? "已关注~" : "关注";
+
+                if (status == 1) {
+                    $("#user-" + UserFriendUid).addClass("is-guanzhu");
+                } else {
+                    $("#user-" + UserFriendUid).removeClass("is-guanzhu");
+                }
+            }
+        })
+    }
+
+    let lastPageInput = 1;
+    let pageInput = 1;
+    // 事件委托, 输入数字跳转该分页
+    $("#pagingIndex").on("keyup", "#curPageInput", function (event) {
+        lastPageInput = pageInput;
+        pageInput = document.getElementById("curPageInput").value;
+        if (pageInput == "") {
+            pageInput = 1;
+        }
+        // 监听回车
+        if (event.keyCode == "13") {
+            if (pageInput >= 1 && pageInput <= PageBean.totalPage) {
+                curPage = pageInput;
+                search(curPage);
+            } else {
+                alert("找不到这个页码！")
+            }
+        } else {
+            if (pageInput >= 1 && pageInput <= PageBean.totalPage) {
+            } else {
+                document.getElementById("curPageInput").value = lastPageInput;
+                pageInput = lastPageInput;
+            }
+        }
+    });
+
+    // 删除博客Function
+    let deleteBlogFunction = function (blogId) {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/blog/updateStatusByBlogId?status=-1&blogId=" + blogId
+        }).then(function (resp) {
+            if ("ok" == resp.data) {
+                location.href = 'http://localhost:8080/brand-case/myCreationCenter.html';
+            }
+        })
+    }
+
+    // 删除用户
+    let deleteUser = function (uid, permission) {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/user/updatePermission?uid=" + uid + "&permission=" + permission
+        }).then(function (resp) {
+            if ("ok" == resp.data){
+                search(curPage);
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>

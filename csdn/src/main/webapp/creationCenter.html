@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CreationCenter</title>
+
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/personalCenter.css">
+    <link rel="stylesheet" href="./css/creationCenter.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+
+</head>
+<body>
+
+
+<div id="app">
+    <!-- 顶部导航条 -->
+    <div id="nav">
+
+        <div class="nav-left">
+            <a href="index.html" class="nav-left-img">
+                <img title="首页" src="images/logo1.png">
+            </a>
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+            <!--            <div>-->
+            <!--                博客-->
+            <!--            </div>-->
+        </div>
+        <!--搜索栏    -->
+        <div class="nav-center">
+            <div class="nav-center-search">
+                <div class="nav-center-search-radius">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </div>
+                <input type="text" placeholder="代码改变世界" id="searchInput">
+                <div class="nav-center-search-button" id="searchButton">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    搜索
+                </div>
+            </div>
+        </div>
+        <div class="nav-right" id="nav-right">
+            <div class="nav-right-login" onclick="location.href='http://localhost:8080/brand-case/login.html'">
+                登录/注册
+            </div>
+            <div class="nav-right-head">
+                <img src="images/defaultHead.png" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter">
+                个人中心
+            </div>
+            <div class="nav-right-button" onclick="location.href='creationBlog.html'">
+                发布
+            </div>
+        </div>
+    </div>
+
+    <!--  头部分类导航（作废为布局）  -->
+    <div id="header">
+        <div class="header-center">
+        </div>
+    </div>
+
+
+    <div id="main">
+        <div class="main-center">
+            <!--        左侧导航条    -->
+            <div class="main-center-left">
+                <div onclick="location.href='http://localhost:8080/brand-case/personalCenter.html'">个人资料</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myLikesCenter.html'">我的喜欢</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myCollectsCenter.html'">我的收藏</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myFocusCenter.html'">我的关注</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/focusMeCenter.html'">谁关注我</div>
+                <div id="split1"></div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myDraftCenter.html'">回收站</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myPublishCenter.html'">我的发布</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myCreationCenter.html'">创作列表
+                </div>
+                <div id="split2"></div>
+                <div class="is-selectDiv"
+                     onclick="location.href='http://localhost:8080/brand-case/creationCenter.html'">创作中心
+                </div>
+            </div>
+            <!--        主体部分    -->
+            <div class="main-center-right">
+                <!--                <div class="main-center-right-top">-->
+                <!--                    暂无内容~-->
+                <!--                </div>-->
+                <div class="main-center-right-top">
+                    <div class="sorts" id="sorts">
+                        <div class="sortDiv">
+                            <div class="sort-left">
+                                <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">
+                                    分类
+                                </div>
+                            </div>
+                            <div class="sort-right">
+                                <div class="sort-running" style="color: #999999;">
+                                    操作
+                                </div>
+                                <div class="sort-num" style="color: #999999;">
+                                    文章数
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--                        <div class="sort">-->
+                        <!--                            <div class="sort-left">-->
+                        <!--                                <div class="sort-name" id="sort-name-Java">-->
+                        <!--                                    Java-->
+                        <!--                                </div>-->
+                        <!--                                <div id="hiddenSortDiv-Java" class="hidden">-->
+                        <!--                                    <input class="form-control sortNameInput" placeholder="请输入修改后的名字">-->
+                        <!--                                    <input type="hidden" class="tip" value="Java">-->
+                        <!--                                    <input type="hidden" class="tipSortId" value="1">-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="sort-right">-->
+                        <!--                                <div class="sort-running">-->
+                        <!--                                    <div class="sort-button" onclick="changeInput('Java');">-->
+                        <!--                                        编辑-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="sort-num">-->
+                        <!--                                    3-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
+
+                    </div>
+
+                    <div class="sorts" id="labels">
+
+<!--                        <div class="sortDiv">-->
+<!--                            <div class="sort-left">-->
+<!--                                <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">-->
+<!--                                    标签（首页）-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="sort-right">-->
+<!--                                <div class="sort-running" style="color: #999999;">-->
+<!--                                    操作-->
+<!--                                </div>-->
+<!--                                <div class="sort-num" style="color: #999999;">-->
+<!--                                    文章数-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="sort label">-->
+<!--                            <div class="sort-left">-->
+<!--                                <div class="sort-name" id="sort-name-${}">-->
+<!--                                    Java-->
+<!--                                </div>-->
+<!--                                <div id="hiddenLabelDiv-${}" class="hidden">-->
+<!--                                    <input class="form-control labelNameInput" placeholder="请输入修改后的名字">-->
+<!--                                    <input type="hidden" class="tip" value="${}">-->
+<!--                                    <input type="hidden" class="tipNum" value="${}">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="sort-right">-->
+<!--                                <div class="sort-running">-->
+<!--                                    <div class="sort-button">-->
+<!--                                        <label class="radio-inline">-->
+<!--                                            <input type="radio" name="label-${}" id="label-${}-1" value="1"> 显示-->
+<!--                                        </label>-->
+<!--                                        <label class="radio-inline">-->
+<!--                                            <input type="radio" name="label-${}" id="label-${}-2" value="0"> 隐藏-->
+<!--                                        </label>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="label-num" id="label-num-${}">-->
+<!--                                    0-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="main-center-top">
+                    <div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+
+                <!--    分页导航条    -->
+                <div class="main-center-bottom" id="pagingIndex">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/md5.min.js"></script>
+
+
+<script>
+    // 解决jq选择器无法选中有特殊符号的id或class元素
+
+    function escapeJquery(srcStr, type) {
+        /*
+        srcStr： 需转换的字符串
+        type: 0:属性选择器，1：类和id选择器
+        */
+        var jsSpecialChars = [['\\', '^', '$', '*', '?', '#', '.', '+', '(', ')', '[',
+            ']', '|', '{', '}', '~', '`', '@', '%', '&', '=', '\'', '"',
+            ':', ';', '<', '>', ',', '/'
+        ], ['\\', '\"', '\'']]
+        var resultStr = srcStr
+        if ([0, 1].indexOf(type) === -1) {
+            return resultStr
+        }
+        jsSpecialChars[type].map(function (chars) {
+            var reg = new RegExp('\\' + chars, 'gim')
+            resultStr = resultStr.replace(reg, '\\' + chars)
+        })
+        return resultStr
+    }
+
+    // 加载本地的user对象
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+    // 查询登录状态
+    if (user != null) {
+        document.getElementById("nav-right").innerHTML =
+            `<div class="nav-right-head">
+                <img src="images/${user.headPortrait}" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter" onclick="location.href='http://localhost:8080/brand-case/personalCenter.html'">
+                个人中心
+            </div>
+            <div class="nav-right-button" onclick="location.href='http://localhost:8080/brand-case/creationBlog.html'">
+                发布
+            </div>`;
+    } else {
+        document.getElementById("nav-right").innerHTML =
+            "<div class=\"nav-right-login\" onclick=\"location.href='http://localhost:8080/brand-case/login.html'\">\n" +
+            "                登录/注册\n" +
+            "            </div>\n" +
+            "            <div class=\"nav-right-button\">\n" +
+            "                发布\n" +
+            "            </div>";
+        location.href = "http://localhost:8080/brand-case/login.html";
+    }
+
+    // 定义一些变量
+    let q = "";
+    let t = "blog";
+    let u = user.uid;
+    let nonContent = `<div style="height: 50px;display: flex;justify-content: center;align-items: center;">
+                          暂无内容~
+                      </div>`;
+
+
+    // 监听回车
+    $('#searchInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            document.getElementById("searchButton").click();
+        }
+    });
+
+    // 设置搜索点击事件
+    document.getElementById("searchButton").addEventListener("click", function () {
+        if (document.getElementById("searchInput").value.length != 0)
+            location.href = 'http://localhost:8080/brand-case/search.html?q=' + document.getElementById("searchInput").value;
+        else
+            alert("请输入搜素内容")
+    });
+
+    // 改变Input的显示状态
+    let changeInput = function (sortName) {
+        if ($("#hiddenSortDiv-" + escapeJquery(sortName, 0)).hasClass("hidden")) {
+            $("#hiddenSortDiv-" + escapeJquery(sortName, 0)).removeClass("hidden");
+            $("#sort-name-" + escapeJquery(sortName, 0)).addClass("hidden");
+        } else {
+            $("#hiddenSortDiv-" + escapeJquery(sortName, 0)).addClass("hidden");
+            $("#sort-name-" + escapeJquery(sortName, 0)).removeClass("hidden");
+        }
+        // 防止sort的点击事件
+        event.stopPropagation();
+    }
+
+    let changeSortName = function (lastSortName, nextSortName) {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/sort/updateSortName?uid=" + user.uid + "&lastName=" + lastSortName + "&nextName=" + nextSortName
+        }).then(function (resp) {
+            if (resp.data == "ok") {
+                searchSort();
+            } else {
+                alert(resp.data);
+            }
+        })
+    }
+
+    function searchSort() {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/sort/selectAllSortByUid?Uid=" + user.uid
+        }).then(function (resp) {
+            var sorts = resp.data;
+
+            changeSorts(sorts);
+        })
+    }
+
+    searchSort();
+
+    // 初始化sort列表
+    function changeSorts(sorts) {
+        let innerHTML =
+            `<div class="sortDiv">
+                 <div class="sort-left">
+                     <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">
+                         分类
+                     </div>
+                 </div>
+                 <div class="sort-right">
+                     <div class="sort-running" style="color: #999999;">
+                         操作
+                     </div>
+                     <div class="sort-num" style="color: #999999;">
+                         文章数
+                     </div>
+                 </div>
+             </div>`;
+        if (sorts != null) {
+            for (let i = 0; i < sorts.length; i++) {
+                innerHTML +=
+                    `
+                    <div class="sort">
+                        <div class="sort-left">
+                            <div class="sort-name" id="sort-name-${sorts[i].sortName}">
+                                ${sorts[i].sortName}
+                            </div>
+                            <div id="hiddenSortDiv-${sorts[i].sortName}" class="hidden">
+                                <input class="form-control sortNameInput" id="${i}" placeholder="请输入修改后的名字">
+                                <input type="hidden" class="tip" value="${sorts[i].sortName}">
+                                <input type="hidden" class="tipSortId" value="${sorts[i].sortId}">
+                            </div>
+                        </div>
+                        <div class="sort-right">
+                            <div class="sort-running">
+                                <div class="sort-button" onclick="changeInput('${sorts[i].sortName}');">
+                                    编辑
+                                </div>
+                            </div>
+                            <div class="sort-num" id="sort-num-${sorts[i].sortName}">
+                                0
+                            </div>
+                        </div>
+                    </div>
+                    `;
+            }
+        } else {
+            innerHTML += nonContent;
+        }
+        if (sorts != null && sorts.length > 0) {
+            document.getElementById("sorts").innerHTML = innerHTML;
+            changeSortCount(sorts);
+        } else {
+            document.getElementById("sorts").innerHTML = "";
+        }
+    }
+
+    // 监听 sort 的 Input 的回车（就是修改 sort 名字的 Input）
+    $('#sorts').on("keydown", ".sortNameInput", function (event) {
+        if (event.keyCode == "13") {
+            let lastName = $(this).parent().find('.tip').val();
+            let nextName = this.value;
+            changeSortName(lastName, nextName);
+            this.value = "";
+        }
+    })
+
+    // 设置 sort 点击事件
+    $('#sorts').on("click", ".sort", function (event) {
+        window.open('http://localhost:8080/brand-case/search.html?sort=' + $(this).find('.tipSortId').val());
+    })
+
+    // 设置 label 点击事件
+    $('#labels').on("click", ".myLabel", function (event) {
+        window.open('http://localhost:8080/brand-case/search.html?label=' + $(this).find('.tipNum').val());
+    })
+
+    let changeSortCount = function (sorts) {
+        if (sorts != null) {
+            for (let i = 0; i < sorts.length; i++) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:8080/brand-case/sort/selectCountBySortName?name=" + sorts[i].sortName
+                }).then(function (resp) {
+                    document.getElementById("sort-num-" + sorts[i].sortName).innerText = resp.data;
+                })
+            }
+        }
+    }
+
+
+    function searchLabel() {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/label/selectAllLabel"
+        }).then(function (resp) {
+            var labels = resp.data;
+
+            changelabels(labels);
+        })
+    }
+
+    if (user.permission > 1)
+        searchLabel();
+
+    let changelabels = function (labels) {
+        let innerHTML = `
+            <div class="sortDiv">
+                <div class="sort-left">
+                    <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">
+                        标签（首页）
+                    </div>
+                </div>
+                <div class="sort-right">
+                    <div class="sort-running" style="color: #999999;">
+                        操作
+                    </div>
+                    <div class="sort-num" style="color: #999999;">
+                        文章数
+                    </div>
+                </div>
+            </div>`;
+        if (labels != null) {
+            for (let i = 0; i < labels.length; i++) {
+                innerHTML += `
+                    <div class="sort myLabel">
+                        <div class="sort-left">
+                            <div class="sort-name" id="sort-name-${labels[i].labelId}">
+                                ${labels[i].labelName}
+                            </div>
+                            <div id="hiddenLabelDiv-${labels[i].labelId}" class="hidden">
+                                <input class="form-control labelNameInput" placeholder="请输入修改后的名字">
+                                <input type="hidden" class="tip" value="${labels[i].labelName}">
+                                <input type="hidden" class="tipNum" value="${labels[i].labelId}">
+                            </div>
+                        </div>
+                        <div class="sort-right">
+                            <div class="sort-running label-running">
+                                <div class="sort-button" onclick="changeLabelDescription('${labels[i].labelId}')">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="label-description-${labels[i].labelId}" id="label-${labels[i].labelId}-1" value="1"> 显示
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="label-description-${labels[i].labelId}" id="label-${labels[i].labelId}-0" value="0"> 隐藏
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="label-num" id="label-num-${labels[i].labelId}">
+                                0
+                            </div>
+                        </div>
+                    </div>`;
+            }
+        } else {
+            innerHTML += nonContent;
+        }
+        if (labels != null && labels.length > 0) {
+            document.getElementById("labels").innerHTML = innerHTML;
+            changeLabelCount(labels);
+            changeLabelChecked(labels);
+        } else {
+            document.getElementById("labels").innerHTML = "";
+        }
+    }
+
+    let changeLabelCount = function (labels) {
+        for (let i = 0; i < labels.length; i++) {
+            axios({
+                method: "get",
+                url: "http://localhost:8080/brand-case/label/selectCountByLabelId?labelId=" + labels[i].labelId
+            }).then(function (resp) {
+                document.getElementById("label-num-" + labels[i].labelId).innerText = resp.data;
+            })
+        }
+    }
+
+    let changeLabelChecked = function (labels) {
+        for (let i = 0; i < labels.length; i++) {
+            if (labels[i].labelDescription != "")
+                document.getElementById("label-" + labels[i].labelId + "-" + labels[i].labelDescription).setAttribute("checked", "checked");
+        }
+    }
+
+    let updateLabelDescription = function (labelId, description) {
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/label/updateLabelDescription?labelId=" + labelId + "&description=" + description
+        }).then(function (resp) {
+            if (resp.data == "ok") {
+                searchLabel();
+            } else {
+                alert(resp.data);
+            }
+        })
+    }
+
+    // 改变Input的显示状态
+    let changeLabelDescription = function (labelId) {
+        let description = "";
+        let labelDesElements = document.getElementsByName("label-description-" + labelId);
+        for (let i = 0; i < labelDesElements.length; i++) {
+            if (labelDesElements.item(i).checked) {
+                description = labelDesElements.item(i).value;
+                break;
+            }
+        }
+        // 防止sort的点击事件
+        event.stopPropagation();
+
+        updateLabelDescription(labelId, description);
+    }
+
+
+</script>
+
+</body>
+</html>

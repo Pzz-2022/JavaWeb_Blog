@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PersonalCenter</title>
+
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/personalCenter.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+
+</head>
+<body>
+
+
+<div id="app">
+    <!-- 顶部导航条 -->
+    <div id="nav">
+
+        <div class="nav-left">
+            <a href="index.html" class="nav-left-img">
+                <img title="首页" src="images/logo1.png">
+            </a>
+<!--            <div>-->
+<!--                博客-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                博客-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                博客-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                博客-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                博客-->
+<!--            </div>-->
+        </div>
+        <!--搜索栏    -->
+        <div class="nav-center">
+            <div class="nav-center-search">
+                <div class="nav-center-search-radius">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </div>
+                <input type="text" placeholder="代码改变世界" id="searchInput">
+                <div class="nav-center-search-button" id="searchButton">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    搜索
+                </div>
+            </div>
+        </div>
+        <div class="nav-right" id="nav-right">
+            <div class="nav-right-login" onclick="location.href='http://localhost:8080/brand-case/login.html'">
+                登录/注册
+            </div>
+            <div class="nav-right-head">
+                <img src="images/defaultHead.png" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter">
+                个人中心
+            </div>
+            <div class="nav-right-button" onclick="location.href='creationBlog.html'">
+                发布
+            </div>
+        </div>
+    </div>
+
+    <!--  头部分类导航（作废为布局）  -->
+    <div id="header">
+        <div class="header-center">
+        </div>
+    </div>
+
+
+    <div id="main">
+        <div class="main-center">
+            <!--        左侧导航条    -->
+            <div class="main-center-left">
+                <div class="is-selectDiv" onclick="location.href='http://localhost:8080/brand-case/personalCenter.html'">个人资料</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myLikesCenter.html'">我的喜欢</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myCollectsCenter.html'">我的收藏</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myFocusCenter.html'">我的关注</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/focusMeCenter.html'">谁关注我</div>
+                <div id="split1"></div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myDraftCenter.html'">回收站</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myPublishCenter.html'">我的发布</div>
+                <div onclick="location.href='http://localhost:8080/brand-case/myCreationCenter.html'">创作列表</div>
+                <div id="split2"></div>
+                <div onclick="location.href='http://localhost:8080/brand-case/creationCenter.html'">创作中心</div>
+            </div>
+            <!--        主体部分    -->
+            <div class="main-center-right">
+                <div class="main-center-right-top">
+                    <div class="main-center-right-top-center">
+                        <div class="main-center-right-top-center-head" id="head">
+
+                            <img src="images/test.jpg">
+                            <form method="post" enctype="multipart/form-data" id="headForm" action="upLoadServlet">
+                                <input type="file" id="headFileInput" onchange="headFileFunction()" style="width: 100%; height: 100%" name="headFile">
+                                <input type="hidden" name="type" value="head">
+                                <input type="hidden" name="uid" value="">
+                                <input type="hidden" name="fileName" id="fileName">
+                                <button id="headSubmit" hidden></button>
+                            </form>
+
+                        </div>
+                        <div class="main-center-right-top-center-personal">
+                            <div class="main-center-right-top-center-personal-name" id="name">
+                                PP
+                            </div>
+                            <div class="main-center-right-top-center-personal-flag" id="maAge">
+                                <img src="images/logo2.png" alt="logo">
+                                码龄1年
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-center-right-bottom">
+                    <div class="main-center-right-bottom-title">
+                        基本信息
+                    </div>
+                    <div class="main-center-right-bottom-content">
+
+                        <div class="main-center-right-bottom-content-item">
+                            <div class="main-center-right-bottom-content-item-l">
+                                用户UID
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userUid">
+                                8851661992
+                            </div>
+                        </div>
+
+                        <div class="main-center-right-bottom-content-item" id="item-name">
+                            <div class="main-center-right-bottom-content-item-l">
+                                用户昵称
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userName">
+                                PP
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="nameButton"
+                                        class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>
+                            <!--                            <div>-->
+                            <!--                                <input placeholder="请设置您的昵称"-->
+                            <!--                                       class="hidden-input hidden-hover" id="nameInput">-->
+                            <!--                            </div>-->
+                            <!--                            <div class="buttons">-->
+                            <!--                                <div>-->
+                            <!--                                    <button value="ok" id="nameOkButton" class="hidden-okButton">-->
+                            <!--                                        确定-->
+                            <!--                                    </button>-->
+                            <!--                                </div>-->
+                            <!--                                <div>-->
+                            <!--                                    <button value="no" id="nameNoButton" class="hidden-noButton">-->
+                            <!--                                        取消-->
+                            <!--                                    </button>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                        </div>
+
+                        <div class="main-center-right-bottom-content-item">
+                            <div class="main-center-right-bottom-content-item-l">
+                                用户邮箱
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userEmail">
+                                2733286080@qq.com
+                            </div>
+                        </div>
+
+                        <div class="main-center-right-bottom-content-item" id="item-gender">
+                            <div class="main-center-right-bottom-content-item-l">
+                                性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userGender">
+                                男
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="genderButton"
+                                        class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>
+
+                            <!--                            <div style="display: flex; align-items: center">-->
+                            <!--                                <div class="radio-inline">-->
+                            <!--                                    <label>-->
+                            <!--                                        <input type="radio" name="genderRadios" id="optionsRadios1" value="男"-->
+                            <!--                                               checked>-->
+                            <!--                                        男-->
+                            <!--                                    </label>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="radio-inline">-->
+                            <!--                                    <label>-->
+                            <!--                                        <input type="radio" name="genderRadios" id="optionsRadios2" value="女">-->
+                            <!--                                        女-->
+                            <!--                                    </label>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="buttons">-->
+                            <!--                                <div>-->
+                            <!--                                    <button value="ok" id="genderOkButton" class="hidden-okButton">-->
+                            <!--                                        确定-->
+                            <!--                                    </button>-->
+                            <!--                                </div>-->
+                            <!--                                <div>-->
+                            <!--                                    <button value="no" id="genderNoButton" class="hidden-noButton">-->
+                            <!--                                        取消-->
+                            <!--                                    </button>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+
+                        </div>
+
+                        <div class="main-center-right-bottom-content-item" id="item-birthday">
+                            <div class="main-center-right-bottom-content-item-l">
+                                出生日期
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userBirthday">
+                                2002-07-05
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="birthdayButton" class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>
+
+<!--                            <div>-->
+<!--                                <label for="birthdayDate"></label>-->
+<!--                                <input id="birthdayDate" type="date" value="2022-09-01"/>-->
+<!--                            </div>-->
+<!--                            <div class="buttons">-->
+<!--                                <div>-->
+<!--                                    <button value="ok" id="birthdayOkButton" class="hidden-okButton">-->
+<!--                                        确定-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <button value="no" id="birthdayNoButton" class="hidden-noButton">-->
+<!--                                        取消-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+
+                        <div class="main-center-right-bottom-content-item" id="item-signature">
+                            <div class="main-center-right-bottom-content-item-l">
+                                个人简介
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userSignature">
+                                这个少年很懒...
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="signatureButton" class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>
+
+<!--                            <textarea class="form-control" rows="3" id="signatureTextarea"></textarea>-->
+<!--                            <div class="buttons">-->
+<!--                                <div>-->
+<!--                                    <button value="ok" id="signatureOkButton" class="hidden-okButton">-->
+<!--                                        确定-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <button value="no" id="signatureNoButton" class="hidden-noButton">-->
+<!--                                        取消-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/md5.min.js"></script>
+
+
+<script>
+    // 加载本地的user对象
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+    if (user != null) {
+        document.getElementById("nav-right").innerHTML =
+            `<div class="nav-right-head">
+                <img src="images/${user.headPortrait}" alt="head" class="nav-right-head-img">
+            </div>
+            <div class="nav-right-personalCenter" id="personalCenter" onclick="location.href='http://localhost:8080/brand-case/personalCenter.html'">
+                个人中心
+            </div>
+            <div class="nav-right-button" onclick="location.href='http://localhost:8080/brand-case/creationBlog.html'">
+                发布
+            </div>`;
+        document.getElementById("head").innerHTML =
+            `  <img src="images/${user.headPortrait}">
+               <form method="post" enctype="multipart/form-data" id="form" action="upLoadServlet">
+                   <input type="file" id="headFileInput" onchange="headFileFunction()" style="width: 100%; height: 100%" name="headFile">
+                   <input type="hidden" name="type" value="head">
+                   <input type="hidden" name="uid" value="${user.uid}">
+                   <input type="hidden" name="fileName" id="fileName">
+                   <button id="headSubmit" style="height: 0"></button>
+               </form>`;
+        document.getElementById("name").innerText = user.name;
+        document.getElementById("userUid").innerText = user.uid;
+        document.getElementById("userName").innerText = user.name;
+        document.getElementById("userEmail").innerText = user.email;
+        document.getElementById("userGender").innerText = user.gender;
+        document.getElementById("userBirthday").innerText = user.birthday;
+        document.getElementById("userSignature").innerText = user.signature;
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/user/maAge?uid=" + user.uid
+        }).then(function (resp) {
+            let data = resp.data;
+            document.getElementById("maAge").innerHTML =
+                `
+                <img src="images/logo2.png" alt="logo">
+                     码龄${data}年
+                `;
+        });
+    } else {
+        document.getElementById("nav-right").innerHTML =
+            "<div class=\"nav-right-login\" onclick=\"location.href='http://localhost:8080/brand-case/login.html'\">\n" +
+            "                登录/注册\n" +
+            "            </div>\n" +
+            "            <div class=\"nav-right-button\">\n" +
+            "                发布\n" +
+            "            </div>";
+        location.href = "http://localhost:8080/brand-case/login.html";
+    }
+
+
+    // name的编辑事件
+    // 给name恢复回原本的初始状态
+    var startName = function () {
+        document.getElementById("item-name").innerHTML =
+            `<div class="main-center-right-bottom-content-item-l">
+                 用户昵称
+             </div>
+             <div class="main-center-right-bottom-content-item-r">
+                 ${user.name}
+             </div>
+             <div class="noHoverNone">
+                 <button type="button" id="nameButton"
+                         class="main-center-right-bottom-content-item-button" value="编辑">
+                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                 </button>
+             </div>`;
+        // 给name的编辑按钮添加点击事件
+        nameButtonOnClick();
+    };
+    let nameButtonOnClick = function () {
+        document.getElementById("nameButton").addEventListener("click", function () {
+            document.getElementById("item-name").innerHTML =
+                `<div class="main-center-right-bottom-content-item-l">
+                                用户昵称
+                            </div>
+                            <div>
+                                <input placeholder="请设置您的昵称" value="${user.name}"
+                                       class="hidden-input hidden-hover" id="nameInput">
+                            </div>
+                            <div class="buttons">
+                                <div>
+                                    <button value="ok" id="nameOkButton" class="hidden-okButton">
+                                        确定
+                                    </button>
+                                </div>
+                                <div>
+                                    <button value="no" id="nameNoButton" class="hidden-noButton">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>`;
+            console.log("nameButtonOnClick");
+            // 给确定和取消设置点击事件
+            nameNoButtonOnClick();
+            nameOkButtonOnClick();
+        })
+    }
+
+    let nameOkButtonOnClick = function () {
+        document.getElementById("nameOkButton").addEventListener("click", function () {
+            let newName = document.getElementById("nameInput").value;
+            user.name = newName;
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/user/changePersonal",
+                data: user
+            }).then(function (resp) {
+                let result = resp.data;
+                if (result == "ok") {
+                    localStorage.setItem("user", JSON.stringify(user));
+                    document.getElementById("name").innerText = newName;
+                    startName();
+                }
+            })
+            console.log("nameOkButtonOnClick");
+        })
+    }
+
+    let nameNoButtonOnClick = function () {
+        document.getElementById("nameNoButton").addEventListener("click", function () {
+            startName();
+            console.log("nameNoButtonOnClick");
+        })
+    }
+    nameButtonOnClick();
+
+
+    // gender的编辑
+    var startGender = function () {
+        document.getElementById("item-gender").innerHTML =
+            ` <div class="main-center-right-bottom-content-item-l">
+                                性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userGender">
+                                ${user.gender}
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="genderButton" class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>`;
+        genderButtonOnClick();
+    };
+    let genderButtonOnClick = function () {
+        document.getElementById("genderButton").addEventListener("click", function () {
+            document.getElementById("item-gender").innerHTML =
+                ` <div class="main-center-right-bottom-content-item-l">
+                                性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
+                            </div>
+
+                            <div style="display: flex; align-items: center">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="genderRadios" id="genderRadios1" value="男">
+                                        男
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="genderRadios" id="genderRadios2" value="女">
+                                        女
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <div>
+                                    <button value="ok" id="genderOkButton" class="hidden-okButton">
+                                        确定
+                                    </button>
+                                </div>
+                                <div>
+                                    <button value="no" id="genderNoButton" class="hidden-noButton">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>`;
+            if (user.gender=="男"){
+                document.getElementById("genderRadios1").setAttribute("checked", "checked");
+            } else {
+                document.getElementById("genderRadios2").setAttribute("checked", "checked");
+            }
+            genderOkButtonOnClick();
+            genderNoButtonOnClick();
+        })
+    }
+
+    let genderOkButtonOnClick = function () {
+        document.getElementById("genderOkButton").addEventListener("click", function () {
+            // 得到所选择的性别
+            let genders = document.getElementsByName("genderRadios");
+            for (let i = 0; i < genders.length; i++) {
+                if (genders[i].checked) {
+                    user.gender = genders[i].value;
+                    break;
+                }
+            }
+
+            // 发送请求修改数据库数据
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/user/changePersonal",
+                data: user
+            }).then(function (resp) {
+                let result = resp.data;
+                if (result == "ok") {
+                    console.log(result);
+                    localStorage.setItem("user", JSON.stringify(user));
+                    startGender();
+                }
+            })
+        })
+    }
+
+    let genderNoButtonOnClick = function () {
+        document.getElementById("genderNoButton").addEventListener("click", function () {
+            startGender();
+        })
+    }
+    genderButtonOnClick();
+
+
+
+    // birthday的编辑
+    var startBirthday = function () {
+        document.getElementById("item-birthday").innerHTML =
+            ` <div class="main-center-right-bottom-content-item-l">
+                                出生日期
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userBirthday">
+                                ${user.birthday}
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="birthdayButton" class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>`;
+        birthdayButtonOnClick();
+    }
+
+    let birthdayButtonOnClick = function () {
+        document.getElementById("birthdayButton").addEventListener("click", function () {
+            document.getElementById("item-birthday").innerHTML =
+                `<div class="main-center-right-bottom-content-item-l">
+                                出生日期
+                            </div>
+
+                            <div>
+                                <label for="birthdayDate"></label>
+                                <input id="birthdayDate" type="date" value="${user.birthday}"/>
+                            </div>
+                            <div class="buttons">
+                                <div>
+                                    <button value="ok" id="birthdayOkButton" class="hidden-okButton">
+                                        确定
+                                    </button>
+                                </div>
+                                <div>
+                                    <button value="no" id="birthdayNoButton" class="hidden-noButton">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>`;
+            birthdayOkButtonOnClick();
+            birthdayNoButtonOnClick();
+        })
+    }
+
+    let birthdayOkButtonOnClick = function () {
+        document.getElementById("birthdayOkButton").addEventListener("click", function () {
+            let date = document.getElementById("birthdayDate").value;
+            user.birthday = date;
+
+            // 发送请求修改数据库数据
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/user/changePersonal",
+                data: user
+            }).then(function (resp) {
+                let result = resp.data;
+                if (result == "ok") {
+                    console.log(result);
+                    localStorage.setItem("user", JSON.stringify(user));
+                    startBirthday();
+                }
+            })
+        })
+    }
+
+    let birthdayNoButtonOnClick = function () {
+        document.getElementById("birthdayNoButton").addEventListener("click",function () {
+            startBirthday();
+        })
+    }
+    birthdayButtonOnClick();
+
+
+    // 签名的编辑
+    var startSignature = function () {
+        document.getElementById("item-signature").innerHTML =
+            `<div class="main-center-right-bottom-content-item-l">
+                                个人简介
+                            </div>
+                            <div class="main-center-right-bottom-content-item-r" id="userSignature">
+                                ${user.signature}
+                            </div>
+                            <div class="noHoverNone">
+                                <button type="button" id="signatureButton" class="main-center-right-bottom-content-item-button" value="编辑">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 编辑
+                                </button>
+                            </div>`;
+        signatureButtonOnClick();
+    }
+
+
+    let signatureButtonOnClick = function () {
+        document.getElementById("signatureButton").addEventListener("click", function () {
+            document.getElementById("item-signature").innerHTML =
+                `<div class="main-center-right-bottom-content-item-l">
+                                个人简介
+                            </div>
+
+                            <textarea class="form-control" rows="3" id="signatureTextarea"></textarea>
+                            <div class="buttons">
+                                <div>
+                                    <button value="ok" id="signatureOkButton" class="hidden-okButton">
+                                        确定
+                                    </button>
+                                </div>
+                                <div>
+                                    <button value="no" id="signatureNoButton" class="hidden-noButton">
+                                        取消
+                                    </button>
+                                </div>
+                            </div>`;
+            document.getElementById("signatureTextarea").value = user.signature;
+            signatureOkButtonOnClick();
+            signatureNoButtonOnClick();
+        })
+    }
+
+    let signatureOkButtonOnClick = function () {
+        document.getElementById("signatureOkButton").addEventListener("click", function () {
+            let value = document.getElementById("signatureTextarea").value;
+            if (value.length >= 60){
+                alert("请输入不超过60个字符！")
+                return ;
+            }
+            user.signature = value;
+
+            // 发送请求修改数据库数据
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/user/changePersonal",
+                data: user
+            }).then(function (resp) {
+                let result = resp.data;
+                if (result == "ok") {
+                    console.log(result);
+                    localStorage.setItem("user", JSON.stringify(user));
+                    startSignature();
+                }
+            })
+        })
+    }
+
+    let signatureNoButtonOnClick = function () {
+        document.getElementById("signatureNoButton").addEventListener("click", function () {
+            startSignature();
+        })
+    }
+    signatureButtonOnClick();
+
+
+    // 上传头像
+    let headFileFunction = function () {
+        let name =  document.getElementById("headFileInput").value;
+        document.getElementById("fileName").value = user.uid + "_" + new Date().getTime() + name.substring(name.lastIndexOf('\.'));
+        // 提交表单项
+        document.getElementById("headSubmit").click();
+        // 修改变量和本地的数据
+        if(name.substring(name.lastIndexOf('\.') + 1) == "jpg" || name.substring(name.lastIndexOf('\.') + 1) == "jpeg" || name.substring(name.lastIndexOf('\.') + 1) == "png" || name.substring(name.lastIndexOf('\.') + 1) == "gif"){
+            user.headPortrait = document.getElementById("fileName").value;
+            console.log(user);
+            localStorage.setItem("user", JSON.stringify(user));
+        }
+        document.getElementById("headForm").reset();
+    }
+    // setInterval(()=>{
+    // },1000)
+
+
+    // 监听回车
+    $('#searchInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            document.getElementById("searchButton").click();
+        }
+    });
+
+    // 设置搜索点击事件
+    document.getElementById("searchButton").addEventListener("click", function () {
+        if (document.getElementById("searchInput").value.length != 0)
+            location.href = 'http://localhost:8080/brand-case/search.html?q=' + document.getElementById("searchInput").value;
+        else
+            alert("请输入搜素内容")
+    });
+</script>
+
+</body>
+</html>

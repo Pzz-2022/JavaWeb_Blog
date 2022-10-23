@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="main">
+
+        <div class="center" id="center">
+            <div class="center-title" onclick="location.href='http://localhost:8080/brand-case/'">
+                <h3 id="center-title">用户登录</h3>
+            </div>
+            <div class="center-top">
+                <div class="center-img">
+                    <img src="https://account.cnblogs.com/assets/img/sign-in-avatar.svg" alt="header" id="aaa">
+                </div>
+                <div class="text">
+                    代码改变世界
+                </div>
+            </div>
+
+            <div class="split"></div>
+
+            <form class="center-form">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">账号</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="登录用户ID / 邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="密码">
+                </div>
+                <div class="center-button">
+                    <button type="button" id="submit" class="center-button-item">登录</button>
+                    <div id="message" class="message"></div>
+                </div>
+            </form>
+            <div class="center-bottom">
+                <span>没有账户？</span>
+                <a href="http://localhost:8080/brand-case/register.html">立即注册</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/md5.min.js"></script>
+
+<script>
+    // 提示的信息 document.getElementById("message").innerText
+
+    // document.getElementById("aaa").addEventListener("click", function () {
+    //     setTimeout(function () {
+    //         document.getElementById("exampleInputEmail1").value = "2733286080@qq.com";
+    //         let innerText = document.getElementById("exampleInputPassword1");
+    //         for(let i = 123000; i<128000; i++){
+    //             innerText.value = i+"";
+    //             document.getElementById("submit").click();
+    //     }
+    //
+    //     }, 100)
+    // })
+
+
+    // 提交表单
+    document.getElementById("submit").onclick = function () {
+        let uid = document.getElementById("exampleInputEmail1").value;
+        let password = document.getElementById("exampleInputPassword1").value;
+
+        // 判断输入的是否为空
+        if (uid.length==0||uid.length>20){
+            document.getElementById("message").innerText = "账号有误！";
+            console.log("账号有误");
+            return;
+        }
+        if (password.length==0){
+            document.getElementById("message").innerText = "密码为空！";
+            return;
+        }
+        document.getElementById("message").innerText = "";
+
+        // 将密码转为MD5
+        password = md5(password);
+        let user = {
+            uid: uid,
+            password: password
+        }
+
+        axios({
+            method:"post",
+            url: "http://localhost:8080/brand-case/user/login",
+            data: user
+        }).then(function (resp) {
+            let user = resp.data;
+            if (user != null &&user != "null" &&user!= "账号或密码错误"){
+                // 将user数据保存到本地
+                console.log(user);
+                localStorage.setItem("user", JSON.stringify(user));
+
+                // 转到首页
+                location.href="http://localhost:8080/brand-case/";
+            }else {
+                document.getElementById("message").innerText = "账号或密码错误!";
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>

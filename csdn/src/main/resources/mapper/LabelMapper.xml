@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LabelMapper">
+
+    <resultMap id="labelResultMap" type="label">
+        <result property="labelId" column="label_id"/>
+        <result property="labelName" column="label_name"/>
+        <result property="labelDescription" column="label_description"/>
+    </resultMap>
+
+
+    <insert id="addLabel" useGeneratedKeys="true" keyProperty="labelId">
+        insert into label(label_name, label_description) VALUES (#{labelName}, #{labelDescription});
+    </insert>
+
+    <update id="updateLabelDescription">
+        update label
+        set label_description = #{description}
+        where label_id = #{labelId};
+    </update>
+
+
+    <select id="selectAll" resultMap="labelResultMap">
+        select * from label;
+    </select>
+
+    <select id="selectLabelByName" resultMap="labelResultMap">
+        select * from label where label_name = #{name} limit 1;
+    </select>
+
+    <select id="selectAllByBlogId" resultMap="labelResultMap">
+        select distinct *
+        from label
+        where label_id in (select distinct blog_label.label_id from blog_label where blog_id = #{blogId});
+    </select>
+
+    <select id="selectCountByLabelId" resultType="java.lang.Integer">
+        select count(*)
+        from blog_label
+        where label_id = #{labelId};
+    </select>
+
+
+</mapper>

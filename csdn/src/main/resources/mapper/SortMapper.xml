@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.SortMapper">
+
+    <resultMap id="sortResultMap" type="sort">
+        <result property="sortId" column="sort_id"/>
+        <result property="userUid" column="user_uid"/>
+        <result property="sortName" column="sort_name"/>
+        <result property="sortDescription" column="sort_description"/>
+    </resultMap>
+
+    <insert id="addSort" useGeneratedKeys="true" keyProperty="sortId">
+        insert into sort(user_uid, sort_name, sort_description) VALUES (#{userUid}, #{sortName}, #{sortDescription});
+    </insert>
+
+    <update id="updateSortName">
+        update sort
+        set sort_name = #{nextName}
+        where sort_name = #{lastName}
+        limit 1;
+    </update>
+
+    <select id="selectAll" resultMap="sortResultMap">
+        select * from sort;
+    </select>
+
+    <select id="selectAllByUid" resultMap="sortResultMap">
+        select * from sort where user_uid = #{uid};
+    </select>
+
+    <select id="selectSort" resultMap="sortResultMap">
+        select * from sort where user_uid = #{userUid} and sort_name = #{sortName} limit 1;
+    </select>
+
+    <select id="selectAllByBlogId" resultMap="sortResultMap">
+        select distinct *
+        from sort
+        where sort_id in (select distinct blog_sort.sort_id from blog_sort where blog_id = #{blogId});
+    </select>
+
+    <select id="selectAllBySortName" resultType="java.lang.Integer">
+        select count(*)
+        from blog_sort
+        where sort_id = (select sort_id from sort where sort_name = #{name});
+
+    </select>
+</mapper>

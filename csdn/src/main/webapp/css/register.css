@@ -1,0 +1,153 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+
+#app{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(224,228,232);
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+.main{
+    width: 440px;
+    height: 610px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.center{
+    width: 390px;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px;
+    margin: 24px;
+}
+.center-bottom{
+    margin-top: -28px;
+}
+
+
+.form{
+    width: 325px;
+    height: 566px;
+    display: flex;
+    flex-direction: column;
+}
+.form-input{
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.margin{
+    height: 20px;
+}
+
+#message{
+    display: flex;
+    width: 150px;
+    height: 12px;
+    color: red;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    margin-top: 0px;
+}
+.justify{
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+
+
+
+.success-register{
+    display: flex;
+    flex-direction: column;
+    width: 390px;
+    height: 560px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 16px;
+    margin: 24px;
+    border: 1px;
+}
+
+.ok-register{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-register{
+    width: auto;
+    height: auto;
+    color: rgb(82,224,150);
+    font-size: 80px;
+}
+
+.ok-register div {
+    font-size: 28px;
+    height: 44px;
+    margin-top: 16px;
+}
+
+.uid-register{
+    width: auto;
+    height: auto;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0 32px;
+}
+
+.button-register{
+    width: 300px;
+    height: 60px;
+    background-color: #00a6ff;
+    border-radius: 4px;
+    border: 1px solid #00a6ff;
+    color: #fff;
+    font-size: 22px;
+}

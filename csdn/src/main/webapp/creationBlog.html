@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CreationBlog</title>
+
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="css/creationBlog.css">
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/axios-0.18.0.js"></script>
+
+    <link rel="stylesheet" href="editormd/css/editormd.css"/>
+    <script src="editormd/editormd.min.js"></script>
+
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+</head>
+<body>
+
+<iframe width=0 height=0 frameborder=0 id="myiframe" name="myIframe"></iframe>
+
+<div id="app">
+    <div id="nav">
+        <div class="nav-left" onclick="location.href='http://localhost:8080/brand-case/'">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"> </span>
+            &nbsp;&nbsp;返回首页
+        </div>
+        <div class="nav-center">
+            <div class="radio"></div>
+            <input id="blogTitleInput" placeholder="请输入文章标题~" value="【无标题】">
+        </div>
+        <div class="nav-right" id="nav-right">
+            <button id="keepBlogButton" onclick="keepBlog()">保存草稿</button>
+            <button id="deliverBlogButton" onclick="deliverBlog()">发布文章</button>
+            <div class="nav-right-head" id="headImg">
+                <img src="images/defaultHead.png" alt="head" class="nav-right-head-img">
+            </div>
+        </div>
+    </div>
+
+    <!--  头部分类导航（作废为布局）  -->
+    <div id="header">
+        <div class="header-center">
+
+            <div class="alert alert-info alert-dismissible fade in" role="alert" id="hiddenMessage"
+                 style="display: none">
+                <strong>Warning!&nbsp;&nbsp;</strong>
+                <div id="message">错误信息</div>
+                <button type="button" id="hiddenMessageButton" class="close" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="main">
+
+        <!--z-index: number ：设置元素的堆叠顺序，number大的排在前面-->
+        <div id="md-content" style="z-index: 1 !important">
+            <textarea name="blogContent" placeholder="博客内容" style="display: none"></textarea>
+        </div>
+
+        <div id="main-main">
+            <div id="blogCoverDiv">
+                <div class="item-left">
+                    封面&摘要：
+                </div>
+                <div class="item-right" id="coverHeight">
+                    <div id="Cover">
+                        <img src="images/jiajia.png" id="blogCover" alt="head">
+                        <form id="blogCoverForm" method="post" enctype="multipart/form-data" action="upLoadServlet"
+                              target="myIframe">
+                            <input type="file" name="blogCoverImg" id="blogCoverImg" onchange="upLoadBlogCoverImg()">
+                            <input type="hidden" name="type" value="blogCover">
+                            <input type="hidden" name="imgName" id="coverImgName">
+                            <button id="coverSubmit" hidden></button>
+                        </form>
+                    </div>
+                    <div id="textareaAbstract">
+                        <textarea id="abstract" placeholder="摘要(必填)：会在推荐、列表等场景外露，帮助读者快速了解内容"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-bottom" id="blog-bottom" hidden>
+                <input type="hidden" name="userUid" value="${user.uid}">
+                <input type="hidden" name="type" value="blog">
+                <input type="hidden" name="blogTitle">
+                <input type="hidden" name="blogCover" id="blogCoverInput">
+            </div>
+
+            <div id="originalDiv">
+                <div class="item-left">
+                    文章类型：
+                </div>
+                <div class="item-right">
+                    <label class="radio-inline">
+                        <input type="radio" name="original" id="original1" value="1"> 原创
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="original" id="original2" value="0"> 转载
+                    </label>
+                </div>
+            </div>
+
+            <div id="labelDiv">
+                <div class="item-left">
+                    文章标签：
+                </div>
+                <div class="item-right">
+                    <div id="labelItems" class="Items">
+
+                        <!--                        <div>-->
+                        <!--                            我去-->
+                        <!--                            <span class="glyphicon glyphicon-remove btn-xs remover-item" aria-hidden="true"></span>-->
+                        <!--                        </div>-->
+
+                    </div>
+                    <div class="item-right-item" id="addLabel">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        添加文章标签
+                    </div>
+                    <div id="hiddenLabel">
+                        <div class="hiddenLabel-top">
+                            标签
+                        </div>
+                        <div class="hiddenLabel-center">
+                            <input id="addLabelInput" placeholder="请输入文字 Enter 键入可添加自定义标签">
+                        </div>
+                        <div class="hiddenLabel-bottom" id="Labels-items">
+
+                            <div class="hiddenLabel-bottom-item is-select Label-我去a ">
+                                我去a
+                            </div>
+                            <div class="hiddenLabel-bottom-item Label-我去b">
+                                我去b
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="sortDiv">
+                <div class="item-left">
+                    文章分类：
+                </div>
+
+                <div class="item-right">
+                    <div id="sortItems" class="Items">
+
+                        <!--                        <div>-->
+                        <!--                            我去-->
+                        <!--                            <span class="glyphicon glyphicon-remove btn-xs remover-item" aria-hidden="true"></span>-->
+                        <!--                        </div>-->
+
+                    </div>
+                    <div class="item-right-item" id="addSort">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        新建分类专栏
+                    </div>
+                    <div id="hiddenSort">
+                        <div class="hiddenLabel-top">
+                            分类
+                        </div>
+                        <div class="hiddenLabel-center">
+                            <input id="addSortInput" placeholder="请输入文字 Enter 键入可添加自定义分类">
+                        </div>
+                        <div class="hiddenLabel-bottom" id="Sorts-items">
+
+                            <div class="hiddenLabel-bottom-item is-select Sort-我去a ">
+                                我去a
+                            </div>
+                            <div class="hiddenLabel-bottom-item Sort-我去b">
+                                我去b
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+
+    // 博文信息
+    let blog = {
+        userUid: user.uid,
+        blogTitle: "",
+        blogContent: "",
+        blogCover: "",
+        blogSort: [],
+        blogLabel: [],
+        blogAbstract: "",
+        original: -1,
+        status: 0
+    }
+
+    // 所有标签
+    let labels = [{labelDescription: "", labelId: 0, labelName: ""}];
+    // 个人所有的分类
+    let sorts = [{sortName: ""}];
+
+
+    if (user != null && user != "null") {
+        document.getElementById("headImg").innerHTML =
+            `<img src="images/${user.headPortrait}" alt="head" class="nav-right-head-img">`;
+        // document.getElementById("blog-bottom").innerHTML =
+        //     ` <input type="hidden" name="userUid" value="${user.uid}">
+        //     <input type="hidden" name="type" value="blog">
+        //     <input type="hidden" name="blogTitle">
+        //     <input type="hidden" name="blogCover" id="blogCoverInput">`;
+    } else {
+        location.href = "http://localhost:8080/brand-case/login.html";
+    }
+
+
+    // 初始化 markdown编辑器 等
+    document.getElementById("hiddenLabel").setAttribute("hidden", "hidden");
+    document.getElementById("hiddenSort").setAttribute("hidden", "hidden");
+    document.getElementById("hiddenMessageButton").addEventListener("click", function () {
+        document.getElementById("hiddenMessage").setAttribute("style", "display: none;");
+    })
+
+
+    // 得到所有标签 labels
+    axios({
+        method: "get",
+        url: "http://localhost:8080/brand-case/label/selectAllLabel"
+    }).then(function (resp) {
+        labels = resp.data;
+        initLabelFunction();
+    });
+
+    // 得到个人所有分类 sorts
+    axios({
+        method: "get",
+        url: "http://localhost:8080/brand-case/sort/selectAllSortByUid?Uid=" + user.uid
+    }).then(function (resp) {
+        sorts = resp.data;
+        initSortFunction();
+    });
+
+
+    // 初始化Label选择框
+    let initLabelFunction = function () {
+        let innerLabelHTML = ``;
+        for (let i = 0; i < labels.length; i++) {
+            if (returnByValue(blog.blogLabel, labels[i].labelName) == -1) {
+                innerLabelHTML +=
+                    `<div class="hiddenLabel-bottom-item Label-${labels[i].labelName}">
+                      ${labels[i].labelName}
+                 </div>`;
+            } else {
+                innerLabelHTML +=
+                    `<div class="hiddenLabel-bottom-item is-select Label-${labels[i].labelName}">
+                      ${labels[i].labelName}
+                 </div>`;
+            }
+        }
+        document.getElementById("Labels-items").innerHTML = innerLabelHTML;
+    }
+
+    // 初始化Sort选择框
+    let initSortFunction = function () {
+        let innerLabelHTML = ``;
+        for (let i = 0; i < sorts.length; i++) {
+            if (returnByValue(blog.blogSort, sorts[i].sortName) == -1) {
+                innerLabelHTML +=
+                    `<div class="hiddenLabel-bottom-item Sort-${sorts[i].sortName} ">
+                         ${sorts[i].sortName}
+                     </div>`;
+            } else {
+                innerLabelHTML +=
+                    `<div class="hiddenLabel-bottom-item is-select Sort-${sorts[i].sortName} ">
+                         ${sorts[i].sortName}
+                     </div>`;
+            }
+        }
+        document.getElementById("Sorts-items").innerHTML = innerLabelHTML;
+    }
+
+
+    var contentEditor
+    $(function () {
+        //md-content必须和页面区域的最外层div的id相同
+        contentEditor = editormd("md-content", {
+            // 在页面显示的宽度
+            width: "100%",
+            // 高度
+            height: 780,
+            // 单滚动条
+            syncScrolling: "single",
+            // lib资源的路径
+            path: "editormd/lib/",
+            saveHTMLToTextarea: true,
+            searchReplace: true,
+            emoji: true,
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "http://localhost:8080/brand-case/blogUpLoadServlet",
+
+
+            //
+            onload: function () {
+                console.log('onload', this);
+                // this.fullscreen();
+                // this.unwatch();
+                // this.watch().fullscreen();
+                // this.width("10%");
+                // this.height(480);
+                // this.resize("100%", 640);
+            },
+
+
+        });
+    });
+
+    // 提交博客封面图片, 并修改id为"blogCover"的img属性src（延时设置）
+    let upLoadBlogCoverImg = function () {
+        let name = document.getElementById("blogCoverImg").value;
+        if (name == "") {
+            document.getElementById("blogCover").src = "images/jiajia.png";
+            document.getElementById("blogCoverInput").value = "";
+            return;
+        }
+        name = user.uid + "_" + Date.now() + name.substring(name.lastIndexOf('\.'));
+        console.log(name);
+        document.getElementById("coverImgName").value = name;
+        document.getElementById("coverSubmit").click();
+        document.getElementById("blogCoverInput").value = name;
+        setTimeout(function () {
+            document.getElementById("blogCover").src = "images/" + name;
+        }, 500);
+    }
+
+
+    function removeByValue(arr, val) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] == val) {
+                arr.splice(i, 1);
+                break;
+            }
+        }
+    }
+
+    function returnByValue(arr, val) {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] == val) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // 将blog里面的数据初始化
+    let updateBlog = function () {
+        blog.blogTitle = document.getElementById("blogTitleInput").value;
+        blog.blogContent = contentEditor.getMarkdown();
+        blog.blogCover = document.getElementById("blogCoverInput").value;
+        blog.blogAbstract = document.getElementById("abstract").value;
+        let listOfOriginal = document.getElementsByName("original");
+        for (let i = 0; i < listOfOriginal.length; i++) {
+            if (listOfOriginal.item(i).checked) {
+                blog.original = listOfOriginal.item(i).value;
+            }
+        }
+        console.log(blog);
+    }
+
+    let checkBlog = function () {
+        setTimeout(function () {
+            document.getElementById("hiddenMessage").setAttribute("style", "display: none");
+        }, 3000);
+
+        if (blog.blogTitle == "" || blog.blogTitle == "【无标题】") {
+            document.getElementById("message").innerText = "无标题错误！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        if (blog.blogContent == "") {
+            document.getElementById("message").innerText = "无内容错误！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        if (blog.blogAbstract == "") {
+            document.getElementById("message").innerText = "无摘要错误！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        if (blog.original == -1) {
+            document.getElementById("message").innerText = "未选择文章类型！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        if (blog.blogLabel.length == 0) {
+            document.getElementById("message").innerText = "未选择文章标签！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        if (blog.blogSort.length == 0) {
+            document.getElementById("message").innerText = "未选择文章分类！";
+            document.getElementById("hiddenMessage").setAttribute("style", "display: flex");
+            return 0;
+        }
+        return 1;
+    }
+
+    // 定义保存和发布的方法
+    let keepBlog = function () {
+        updateBlog();
+        blog.status = 0;
+
+        if (checkBlog()) {
+            // 执行后续操作
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/blog/addBlog",
+                data: blog
+            }).then(function (resp) {
+                let result = resp.data;
+                console.log(result);
+                if (result == "ok") {
+                    location.href = 'http://localhost:8080/brand-case/myCreationCenter.html';
+                }
+            })
+        }
+    }
+    let deliverBlog = function () {
+        updateBlog();
+        blog.status = 1;
+
+        if (checkBlog()) {
+            // 执行后续操作
+            axios({
+                method: "post",
+                url: "http://localhost:8080/brand-case/blog/addBlog",
+                data: blog
+            }).then(function (resp) {
+                let result = resp.data;
+                console.log(result);
+                if (result == "ok") {
+                    location.href = 'http://localhost:8080/brand-case/myCreationCenter.html';
+                }
+            })
+        }
+    }
+
+    // 监听回车
+    $('#addLabelInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            let label = this.value;
+            this.value = "";
+
+            // 判断是否已经有这个标签了
+            let number = returnByValue(blog.blogLabel, label);
+            if (number == -1) {
+                blog.blogLabel.push(label);
+            }
+        }
+    });
+
+    $('#addSortInput').bind('keydown', function (event) {
+        if (event.keyCode == "13") {
+            let label = this.value;
+            this.value = "";
+
+            // 判断是否已经有这个分类了
+            let number = returnByValue(blog.blogSort, label);
+            if (number == -1) {
+                blog.blogSort.push(label);
+            }
+        }
+    });
+
+    // 监听数组的变化
+    // 获取Array原型
+    const arrayProto = Array.prototype;
+    const arrayMethods = Object.create(arrayProto);
+    const newArrProto = [];
+    [
+        'push',
+        'pop',
+        'shift',
+        'unshift',
+        'splice',
+        'sort',
+        'reverse'
+    ].forEach(method => {
+        // 原生Array的原型方法
+        let original = arrayMethods[method];
+
+        // 将push，pop等方法重新封装并定义在对象newArrProto的属性上
+        // 这里需要注意的是封装好的方法是定义在newArrProto的属性上而不是其原型属性
+        // newArrProto.__proto__ 没有改变
+        newArrProto[method] = function mutator() {
+            // console.log('监听到数组的变化啦！');
+            // 调用对应的原生方法并返回结果（新数组长度）
+            if (method != 'push' || this.length != 5) {
+                original.apply(this, arguments);
+                console.log(this);
+
+                let innerHTML = "";
+                for (let i = 0; i < this.length; i++) {
+                    innerHTML +=
+                        `<div class="remove">
+                            ${this[i]}
+                            <span class="glyphicon glyphicon-remove btn-xs remover-item" aria-hidden="true"></span>
+                     </div>`;
+                }
+                if (blog.blogLabel == this) {
+                    document.getElementById("labelItems").innerHTML = innerHTML;
+                } else if (blog.blogSort == this) {
+                    document.getElementById("sortItems").innerHTML = innerHTML;
+                }
+
+                // 调用对应的原生方法并返回结果（新数组长度）
+                return this;
+            }
+        }
+    })
+
+
+    // 将我们要监听的数组的原型指针指向上面定义的空数组对象
+    // newArrProto的属性上定义了我们封装好的push，pop等方法
+    blog.blogLabel.__proto__ = newArrProto;
+    blog.blogSort.__proto__ = newArrProto;
+
+
+    $("#labelItems").on("click", ".remover-item", function (event) {
+        // 在数组中删除元素
+        removeByValue(blog.blogLabel, this.parentNode.innerText);
+        this.parentNode.remove();
+
+        // 将标签选择框中选择的更新
+        initLabelFunction();
+
+        // 防止标签选择框隐藏
+        event.stopPropagation();
+    });
+
+
+    // 绑定点开添加标签的事件
+    $(document.body).click(function () {
+        document.getElementById("hiddenLabel").setAttribute("hidden", "hidden");
+        document.getElementById("hiddenSort").setAttribute("hidden", "hidden");
+    });
+
+    $("#hiddenLabel").click(function (event) {
+        document.getElementById("hiddenLabel").removeAttribute("hidden");
+        event.stopPropagation();
+    });
+
+    $("#addLabel").click(function (event) {
+        document.getElementById("hiddenLabel").removeAttribute("hidden");
+        event.stopPropagation();
+    });
+
+
+    // 点击选择框中的标签，切换是否被选中
+    $("#Labels-items").on("click", ".hiddenLabel-bottom-item", function () {
+        let select = this.innerText;
+        // 不能直接将值作为类名，会有重复
+        let selectItem = $("." + escapeJquery("Label-" + select, 0));
+        if (selectItem.hasClass("is-select")) {
+            selectItem.removeClass("is-select");
+            removeByValue(blog.blogLabel, select);
+        } else if(blog.blogLabel.length != 5) {
+            selectItem.addClass("is-select");
+            blog.blogLabel.push(select);
+        }
+
+        console.log(this.innerText);
+    });
+
+
+    // 解决jq选择器无法选中有特殊符号的id或class元素
+    function escapeJquery(srcStr, type) {
+        /*
+        * srcStr： 需转换的字符串
+        * type: 0:属性选择器，1：类和id选择器
+        * */
+        var jsSpecialChars = [['\\', '^', '$', '*', '?', '#', '.', '+', '(', ')', '[',
+            ']', '|', '{', '}', '~', '`', '@', '%', '&', '=', '\'', '"',
+            ':', ';', '<', '>', ',', '/'
+        ], ['\\', '\"', '\'']]
+        var resultStr = srcStr
+        if ([0, 1].indexOf(type) === -1) {
+            return resultStr
+        }
+        jsSpecialChars[type].map(function (chars) {
+            var reg = new RegExp('\\' + chars, 'gim')
+            resultStr = resultStr.replace(reg, '\\' + chars)
+        })
+        return resultStr
+    }
+
+
+    // 点击 x 将分类删除
+    $("#sortItems").on("click", ".remover-item", function (event) {
+        // 在数组中删除元素
+        removeByValue(blog.blogSort, this.parentNode.innerText);
+        this.parentNode.remove();
+
+        // 将分类选择框中选择的更新
+        initSortFunction();
+
+        // 防止分类选择框隐藏
+        event.stopPropagation();
+    });
+
+    // 将分类选择框显示或隐藏
+    $("#hiddenSort").click(function (event) {
+        document.getElementById("hiddenSort").removeAttribute("hidden");
+        event.stopPropagation();
+    });
+
+    $("#addSort").click(function (event) {
+        document.getElementById("hiddenSort").removeAttribute("hidden");
+        event.stopPropagation();
+    });
+
+    // 点击选择框中的分类，切换是否被选中
+    $("#Sorts-items").on("click", ".hiddenLabel-bottom-item", function () {
+        let select = this.innerText;
+        // 不能直接将值作为类名，会有重复
+        let selectItem = $("." + escapeJquery("Sort-" + select, 0));
+        if (selectItem.hasClass("is-select")) {
+            selectItem.removeClass("is-select");
+            removeByValue(blog.blogSort, select);
+        } else if (blog.blogSort.length != 5) {
+            selectItem.addClass("is-select");
+            blog.blogSort.push(select);
+        }
+
+        console.log(this.innerText);
+    })
+
+
+
+</script>
+
+</body>
+</html>

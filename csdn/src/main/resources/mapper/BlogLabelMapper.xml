@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BlogLabelMapper">
+
+    <resultMap id="blogSortResultMap" type="blogLabel">
+        <result property="blogId" column="blog_id"/>
+        <result property="labelId" column="label_id"/>
+    </resultMap>
+
+    <insert id="addBlogLabel" useGeneratedKeys="true" keyProperty="id">
+        insert into blog_label (blog_id, label_id)
+        values (#{blogId}, #{labelId});
+    </insert>
+
+
+
+
+</mapper>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BlogMapper">
+
+    <resultMap id="blogResultMap" type="Blog">
+        <result property="blogId" column="blog_id"/>
+        <result property="userUid" column="user_uid"/>
+        <result property="blogTitle" column="blog_title"/>
+        <result property="blogContent" column="blog_content"/>
+        <result property="blogDate" column="blog_date"/>
+        <result property="blogViews" column="blog_views"/>
+        <result property="blogLikes" column="blog_likes"/>
+        <result property="blogCollects" column="blog_collects"/>
+        <result property="blogCover" column="blog_cover"/>
+        <result property="blogAbstract" column="blog_abstract"/>
+    </resultMap>
+
+    <insert id="addBlog" useGeneratedKeys="true" keyProperty="blogId">
+        insert into blog(user_uid, blog_title, blog_content, blog_date, blog_views, blog_likes, blog_collects, `order`,
+                         original, status, blog_cover, blog_abstract)
+            VALUE (#{userUid}, #{blogTitle}, #{blogContent}, #{blogDate}, 0, 0, 0, 1, #{original}, #{status},
+                   #{blogCover}, #{blogAbstract});
+    </insert>
+
+    <update id="updateBlogLikesAndBlogCollects">
+        update blog
+        set blog_likes    = (select count(*) from user_likes where blog_id = #{blogID}),
+            blog_collects = (select count(*) from user_collects where blog_id = #{blogID})
+        where blog_id = #{blogId};
+    </update>
+
+    <update id="changeBlog">
+        update blog
+        set blog_title    = #{blogTitle},
+            blog_content  = #{blogContent},
+            blog_cover    = #{blogCover},
+            blog_abstract = #{blogAbstract},
+            status        = 1,
+            original      = #{original}
+        where blog_id = #{blogId};
+    </update>
+
+    <update id="updateViews">
+        update blog
+        set blog_views = blog_views + 1
+        where blog_id = #{blogId};
+    </update>
+
+    <update id="updateOrderByBlogId">
+        update blog
+        set `order` = #{order},
+            status = 2
+        where blog_id = #{blogId};
+    </update>
+
+    <update id="updateStatusByBlogId">
+        update blog
+        set status = #{status}
+        where blog_id = #{blogId};
+    </update>
+
+    <delete id="deleteByBlogId">
+        delete from blog where blog_id = #{blogId};
+    </delete>
+
+    <delete id="deleteLabel">
+        delete from blog_label where blog_id = #{blogId};
+    </delete>
+
+    <delete id="deleteSort">
+        delete from blog_sort where blog_id = #{blogId};
+    </delete>
+
+    <select id="selectAllByBlogId" resultMap="blogResultMap">
+        select *
+        from blog
+        where blog_id = #{blogId}
+        limit 1;
+    </select>
+
+    <select id="selectAllByLikeAndUid" resultMap="blogResultMap">
+        select *
+        from blog
+        where (blog_title like '${q}'
+        or blog_abstract like '${q}')
+        and user_uid = #{uid}
+        <if test="sort !=null and sort != 0">
+            and blog_id in (select blog_sort.blog_id from blog_sort where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="label != null and label != 0">
+            and blog_id in (select blog_label.blog_id from blog_label where blog_label.label_id = #{label})
+        </if>
+        and status = 2
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectAllByLike" resultMap="blogResultMap">
+        select *
+        from blog
+        where (blog_title like '${q}'
+        or blog_abstract like '${q}')
+        <if test="sort !=null and sort != 0">
+            and blog_id in (select blog_sort.blog_id from blog_sort where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="label != null and label != 0">
+            and blog_id in (select blog_label.blog_id from blog_label where blog_label.label_id = #{label})
+        </if>
+        and status = 2
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectTotBySearchLike" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where (blog_title like '${q}'
+        or blog_abstract like '${q}')
+        <if test="sort !=null and sort != 0">
+            and blog_id in (select blog_sort.blog_id from blog_sort where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="label != null and label != 0">
+            and blog_id in (select blog_label.blog_id from blog_label where blog_label.label_id = #{label})
+        </if>
+        and status = 2;
+    </select>
+
+    <select id="selectTotBySearchUid" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where (blog_title like '${q}'
+        or blog_abstract like '${q}')
+        <if test="sort !=null and sort != 0">
+            and blog_id in (select blog_sort.blog_id from blog_sort where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="label != null and label != 0">
+            and blog_id in (select blog_label.blog_id from blog_label where blog_label.label_id = #{label})
+        </if>
+        and user_uid = #{uid}
+        and status = 2;
+    </select>
+
+    <select id="selectAllByUidDraft" resultMap="blogResultMap">
+        select *
+        from blog
+        where status = #{status}
+          and user_uid = #{uid}
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectTotByUidDraft" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where status = #{status}
+          and user_uid = #{uid};
+    </select>
+
+    <select id="selectAllByUidLikes" resultMap="blogResultMap">
+        select *
+        from blog
+        where blog_id in (select blog_id from user_likes where user_likes.user_uid = #{uid})
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectTotByUidLikes" resultType="java.lang.Integer">
+        select count(*)
+        from user_likes
+        where user_likes.user_uid = #{uid};
+    </select>
+
+    <select id="selectAllByUidCollects" resultMap="blogResultMap">
+        select *
+        from blog
+        where blog_id in (select blog_id from user_collects where user_collects.user_uid = #{uid})
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectTotByUidCollects" resultType="java.lang.Integer">
+        select count(*)
+        from user_collects
+        where user_collects.user_uid = #{uid};
+    </select>
+
+    <select id="selectAll" resultMap="blogResultMap">
+        select *
+        from blog
+        where
+             status = 2
+        order by `order` + blog.blog_views + blog.blog_likes + blog.blog_collects + blog_id desc
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectAllTot" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where status = 2;
+    </select>
+
+    <select id="selectAllByMyCreationCenter" resultMap="blogResultMap">
+        select *
+        from blog
+        where
+        (blog_title like '${q}' or blog_abstract like '${q}')
+        and user_uid = #{uid}
+        <if test="sort != null and sort != 0">
+            and blog_id in (select blog_sort.blog_id
+            from blog_sort
+            where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="original != null and original != -1">
+            and original = #{original}
+        </if>
+        and blog_date like #{time}
+        and status != -1
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectTotByMyCreationCenter" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where
+        (blog_title like '${q}' or blog_abstract like '${q}')
+        and user_uid = #{uid}
+        <if test="sort != null and sort != ''">
+            and blog_id in (select blog_sort.blog_id
+            from blog_sort
+            where blog_sort.sort_id = #{sort})
+        </if>
+        <if test="original != null and original != -1">
+            and original = #{original}
+        </if>
+        and blog_date like #{time}
+        and status != -1;
+    </select>
+
+    <select id="selectAllByViews" resultMap="blogResultMap">
+        select *
+        from blog
+        where status = 2
+        order by blog_views desc
+        limit 6;
+    </select>
+
+    <select id="selectAllByPermission" resultMap="blogResultMap">
+        select *
+        from blog
+        where status = 1
+        limit #{index}, 10;
+    </select>
+
+    <select id="selectAllByPermissionTot" resultType="java.lang.Integer">
+        select count(*)
+        from blog
+        where status = 1;
+    </select>
+</mapper>

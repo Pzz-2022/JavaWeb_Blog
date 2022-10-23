@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="icon" href="images/logo1.png">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/register.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<div id="app">
+    <div class="main">
+
+        <div class="center" id="center">
+            <form class="form" method="post">
+                <div class="title">
+                    <h3>用户注册</h3>
+                    <h6 id="message"></h6>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName">昵称</label>
+                    <input type="text" class="form-control" name="name" id="exampleInputName" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" name="password" id="exampleInputPassword1"
+                           placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword2">确认密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                </div>
+                <div class="form-inline justify">
+                    <div>
+                        <label for="meeting">出生日期：</label>
+                        <input id="meeting" type="date" value="2022-09-01"/>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="gender" id="optionsRadios1" value="男">
+                            男
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="gender" id="optionsRadios2" value="女">
+                            女
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail">邮箱</label>
+                    <input type="email" class="form-control" name="email" id="exampleInputEmail" placeholder="Email">
+                </div>
+                <label for="code">验证码</label>
+                <div class="flex">
+                    <input type="text" id="code" class="form-input" placeholder="Code">
+                    <button type="button" class="btn btn-primary" id="sendCode">发送验证码</button>
+                </div>
+                <div class="margin"></div>
+                <button type="button" id="submitButton" class="btn btn-default">注册</button>
+            </form>
+        </div>
+        <div class="center-bottom">
+            <span>已有账户？</span>
+            <a href="http://localhost:8080/brand-case/login.html">立即登录</a>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="js/axios-0.18.0.js"></script>
+<script src="js/md5.min.js"></script>
+<script>
+
+    <!--发送验证码的点击事件    -->
+    let pattenName = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/
+    document.getElementById("sendCode").onclick = function () {
+        console.log("点击了发送验证码按钮");
+
+        // 前端的正则判断邮箱格式
+        if (!pattenName.test(document.getElementById("exampleInputName").value)) {
+            document.getElementById("message").innerText = "昵称格式错误";
+            return;
+        }
+        if (document.getElementById("exampleInputName").value.length > 20) {
+            document.getElementById("message").innerText = "昵称格式错误";
+            return;
+        }
+        let pattenEmail = /^\w+@qq.com$/;
+        if (!pattenEmail.test(document.getElementById("exampleInputEmail").value)) {
+            document.getElementById("message").innerText = "邮箱格式错误";
+            return;
+        }
+
+        // 60s内不可点击
+        let codeButton = document.getElementById("sendCode");
+        codeButton.setAttribute("disabled", "disabled");
+        codeButton.innerText = "60s";
+        let time = 59;
+        let timerID1 = setInterval(() => {
+            codeButton.innerText = time-- + "s";
+        }, 1000);
+        let timerID2 = setTimeout(() => {
+            clearInterval(timerID1);
+            codeButton.innerText = "发送验证码";
+            codeButton.removeAttribute("disabled");
+        }, 60 * 1000);
+
+        // 向后端发送请求，让后端发送验证码
+        axios({
+            method:"get",
+            url:"http://localhost:8080/brand-case/user/sendCode?name=" + document.getElementById("exampleInputName").value
+            + "&email=" +  document.getElementById("exampleInputEmail").value
+        }).then(function (resp) {
+            let result = resp.data;
+            if (result != "ok"){
+                document.getElementById("message").innerText = result;
+                clearTimeout(timerID2);
+                clearInterval(timerID1);
+                codeButton.innerText = "发送验证码";
+                codeButton.removeAttribute("disabled");
+            } else {
+                document.getElementById("message").innerText = "验证码发送成功!";
+            }
+        })
+
+    }
+
+    // 注册
+    document.getElementById("submitButton").onclick = function () {
+        if (document.getElementById("exampleInputPassword1").value != document.getElementById("exampleInputPassword2").value) {
+            document.getElementById("message").innerText = "两次密码不一致";
+            return;
+        }
+
+        let code = document.getElementById("code").value;
+        let user = {
+            name: "",
+            password: "",
+            email: "",
+            gender: "",
+            birthday: ""
+        };
+        user.name = document.getElementById("exampleInputName").value;
+        user.password = md5(document.getElementById("exampleInputPassword1").value);
+        user.email = document.getElementById("exampleInputEmail").value;
+        user.birthday = document.getElementById("meeting").value;
+        let genders = document.getElementsByName("gender");
+        for (let i = 0; i < genders.length; i++) {
+            if (genders[i].checked) {
+                user.gender = genders[i].value;
+                break;
+            }
+        }
+        console.log(user);
+        if (user.name == "") {
+            document.getElementById("message").innerText = "未填写昵称";
+            return;
+        }
+        if (document.getElementById("exampleInputPassword1").value == "") {
+            document.getElementById("message").innerText = "未填写密码";
+            return;
+        }
+        if (user.gender == "") {
+            document.getElementById("message").innerText = "未选择性别";
+            return;
+        }
+        if (user.email == "") {
+            document.getElementById("message").innerText = "未填写邮箱";
+            return;
+        }
+        if (code == "") {
+            document.getElementById("message").innerText = "未填写验证码";
+            return;
+        }
+        if (user.name.length > 20) {
+            document.getElementById("message").innerText = "昵称过长";
+            return;
+        }
+        if (document.getElementById("exampleInputPassword1").value.length > 32) {
+            document.getElementById("message").innerText = "密码过长";
+            return;
+        }
+
+        if (!pattenName.test(user.name)) {
+            document.getElementById("message").innerText = "昵称格式错误";
+            return;
+        }
+        let pattenEmail = /^\w+@qq.com$/;
+        if (!pattenEmail.test(user.email)) {
+            document.getElementById("message").innerText = "邮箱格式错误";
+            return;
+        }
+
+
+        axios({
+            method: "post",
+            url: "http://localhost:8080/brand-case/user/register?code=" + code,
+            data: user
+        }).then(function (resp) {
+            let result = resp.data;
+
+            if (result == "验证码错误") {
+                document.getElementById("message").innerText = result;
+            } else {
+                document.getElementById("center").innerHTML =
+                    "<div class=\"success-register\">\n" +
+                    "    <div class=\"ok-register\">\n" +
+                    "        <span class=\"glyphicon glyphicon-ok-sign img-register\" aria-hidden=\"true\"></span>\n" +
+                    "        <div>注册成功</div>\n" +
+                    "    </div>\n" +
+                    "    <div class=\"uid-register\">\n" +
+                    "        " + result + "\n" +
+                    "    </div>\n" +
+                    "    <div class=\"button-register\">\n" +
+                    "        <input type=\"button\" onclick='location.href=\"http://localhost:8080/brand-case/login.html\"' class=\"button-register\" value=\"立即登录\">\n" +
+                    "    </div>\n" +
+                    "</div>";
+            }
+        })
+        document.getElementById("message").innerText = "";
+    }
+
+    // 动态的获取密码和确认密码是否一致
+    let checkPassword = function () {
+        if (document.getElementById("exampleInputPassword1").value != document.getElementById("exampleInputPassword2").value) {
+            document.getElementById("message").innerText = "两次密码不一致";
+        } else {
+            document.getElementById("message").innerText = " ";
+        }
+    }
+    document.getElementById("exampleInputPassword1").onblur = checkPassword;
+    document.getElementById("exampleInputPassword2").onblur = checkPassword;
+
+    // 动态的获取name是否被注册过了
+    let nameInput = document.getElementById("exampleInputName");
+    nameInput.onblur = function () {
+        if (nameInput.value == "") {
+            document.getElementById("message").innerText = "";
+            return;
+        }
+        if (!pattenName.test(document.getElementById("exampleInputName").value)) {
+            document.getElementById("message").innerText = "昵称格式错误";
+            return;
+        }
+
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-case/user/selectUserByName?name=" + nameInput.value
+        }).then(function (resp) {
+            let result = resp.data;
+            if (result == null || result == "null") {
+                document.getElementById("message").innerText = "这个名字没有被注册哦~";
+            } else {
+                document.getElementById("message").innerText = "这个名字已经被注册了，换一个吧~！";
+            }
+
+        })
+    }
+
+</script>
+
+</body>
+</html>

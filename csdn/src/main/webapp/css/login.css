@@ -1,0 +1,123 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+
+#app{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(224,228,232);
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+.main{
+    width: 410px;
+    height: 580px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.center{
+    width: 340px;
+    height: 510px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 4px;
+    padding: 16px;
+    border: 1px;
+    margin: 12px 24px 24px;
+}
+
+.center-title,#center-title{
+    width: 322px;
+    height: 32px;
+    margin: 8px 0 24px;
+    text-align: center;
+    color: #393b3d;
+    font-weight: 300;
+}
+
+.center-top{
+    width: 322px;
+    height: 100px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text{
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 12px;
+    color: #7f8085;
+}
+
+.split{
+    width: 290px;
+    height: 1px;
+    border-top: 1px solid #EEE;
+}
+
+.center-form{
+    width: 290px;
+    height: 249px;
+    margin-top: 20px;
+}
+
+.center-button{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-button-item{
+    width: 84px;
+    height: 36px;
+    text-align: center;
+    background-color: rgb(52,148,252);
+    border-radius: 4px;
+    border: 4px solid rgb(52,148,252);
+    color: #fff;
+}
+
+.message {
+    width: 200px;
+    height: 20px;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
