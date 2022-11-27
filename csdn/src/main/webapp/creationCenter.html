@@ -99,7 +99,7 @@
                 <!--                <div class="main-center-right-top">-->
                 <!--                    暂无内容~-->
                 <!--                </div>-->
-                <div class="main-center-right-top">
+                <div class="main-center-right-top" style="padding: 0;">
                     <div class="sorts" id="sorts">
                         <div class="sortDiv">
                             <div class="sort-left">
@@ -145,7 +145,52 @@
                     </div>
 
                     <div class="sorts" id="labels">
+                        <!--                        <div class="sortDiv">-->
+                        <!--                            <div class="sort-left">-->
+                        <!--                                <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">-->
+                        <!--                                    标签（首页）-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="sort-right">-->
+                        <!--                                <div class="sort-running" style="color: #999999;">-->
+                        <!--                                    操作-->
+                        <!--                                </div>-->
+                        <!--                                <div class="sort-num" style="color: #999999;">-->
+                        <!--                                    文章数-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
+                        <!--                        <div class="sort myLabel">-->
+                        <!--                            <div class="sort-left">-->
+                        <!--                                <div class="sort-name" id="sort-name-${}">-->
+                        <!--                                    Java-->
+                        <!--                                </div>-->
+                        <!--                                <div id="hiddenLabelDiv-${}" class="hidden">-->
+                        <!--                                    <input class="form-control labelNameInput" placeholder="请输入修改后的名字">-->
+                        <!--                                    <input type="hidden" class="tip" value="${}">-->
+                        <!--                                    <input type="hidden" class="tipNum" value="${}">-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                            <div class="sort-right">-->
+                        <!--                                <div class="sort-running">-->
+                        <!--                                    <div class="sort-button">-->
+                        <!--                                        <label class="radio-inline">-->
+                        <!--                                            <input type="radio" name="label-${}" id="label-${}-1" value="1"> 显示-->
+                        <!--                                        </label>-->
+                        <!--                                        <label class="radio-inline">-->
+                        <!--                                            <input type="radio" name="label-${}" id="label-${}-2" value="0"> 隐藏-->
+                        <!--                                        </label>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                                <div class="label-num" id="label-num-${}">-->
+                        <!--                                    0-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+                    </div>
+
+                    <div class="sorts" id="charts">
 <!--                        <div class="sortDiv">-->
 <!--                            <div class="sort-left">-->
 <!--                                <div class="sort-name" style="color: #1eeae1;font-weight: 550;font-size: 20px;">-->
@@ -162,7 +207,7 @@
 <!--                            </div>-->
 <!--                        </div>-->
 
-<!--                        <div class="sort label">-->
+<!--                        <div class="sort myLabel">-->
 <!--                            <div class="sort-left">-->
 <!--                                <div class="sort-name" id="sort-name-${}">-->
 <!--                                    Java-->
@@ -190,8 +235,8 @@
 <!--                            </div>-->
 <!--                        </div>-->
 
-                    </div>
 
+                    </div>
 
                 </div>
 
@@ -434,6 +479,10 @@
 
     if (user.permission > 1)
         searchLabel();
+    else {
+        $('#labels').remove();
+        $('#charts').remove();
+    }
 
     let changelabels = function (labels) {
         let innerHTML = `

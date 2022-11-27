@@ -9,7 +9,7 @@ public class test1 {
         SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         SqlSession sqlSession = sqlSessionFactory.openSession();
         LabelMapper mapper = sqlSession.getMapper(LabelMapper.class);
-        Label java = new Label("", "");
+        Label java = new Label("LabelName", "0");
         mapper.addLabel(java);
         System.out.println(java.getLabelId());
         sqlSession.commit();

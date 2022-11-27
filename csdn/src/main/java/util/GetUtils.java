@@ -11,7 +11,7 @@ public class GetUtils {
     public static String getCode() {
         StringBuilder code = new StringBuilder();
         String data = "qwertyuiopasdfghjkzxcvbnmQWERTYUOPASDFGHJKLZXCVBNM0123456789";
-        //验证码取消了大写的i和小写的l，因为真的分不清，提高了用户的体验（我在测试的时候老来这两很烦）
+        //验证码取消了大写的i和小写的L，因为真的分不清，提高了用户的体验（我在测试的时候老来这两很烦）
         Random r = new Random();
         int k = 0;
         for (int i = 0; i < 5; i++) {

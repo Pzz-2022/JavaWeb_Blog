@@ -377,15 +377,16 @@
 .main-center-top {
     width: 100%;
     height: auto;
-    margin: 0 auto;
+    margin: 0 0 10px;
     padding: 16px;
     display: block;
     background-color: #fff;
     border-radius: 4px;
+    overflow: hidden;
 }
 
 .blog {
-    width: 996px;
+    width: 100%;
     height: auto;
     padding: 15px 10px 0;
     border-bottom: 1px solid #ddd;
