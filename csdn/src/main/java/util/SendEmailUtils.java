@@ -18,7 +18,7 @@ public class SendEmailUtils {
         //String to = "951913164@qq.com";
 
         // 发件人电子邮箱
-        String from = "PP-2022@qq.com";
+        String from = "PP-2021@qq.com";
 
         // 指定发送邮件的主机为 smtp.qq.com
         String host = "smtp.qq.com";  //QQ 邮件服务器
@@ -33,7 +33,7 @@ public class SendEmailUtils {
         // 获取默认session对象
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("PP-2022@qq.com", "vpywzneeazrtdcjh");
+                return new PasswordAuthentication("PP-2021@qq.com", "vpywzneeazrtdcjh");
                 //发件人邮件用户名、授权码
             }
         });

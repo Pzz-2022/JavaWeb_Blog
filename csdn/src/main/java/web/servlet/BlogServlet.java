@@ -70,7 +70,7 @@ public class BlogServlet extends BaseServlet {
         String blogIdStr = request.getParameter("blogId");
         int blogId = Integer.parseInt(blogIdStr);
 
-        // 浏览量+1
+        // 浏览量+1 利用Session设置防刷
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(30 * 60);
         if (session.getAttribute("vis") == null) {

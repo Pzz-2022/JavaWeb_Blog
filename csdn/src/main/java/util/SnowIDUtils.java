@@ -7,11 +7,13 @@ public class SnowIDUtils {
     private static long sequence = 0;
 
     public static synchronized long getSnowID() {
+        // 得到目前的毫秒值
         long currentTime = System.currentTimeMillis();
         if (currentTime < lastTime) {
             System.out.println("出问题了");
             return 0;
         }
+        // 两个相等的情况下说明同一毫秒时来了两个请求，这个时候将序列号加一
         if (currentTime == lastTime) {
             sequence = (sequence + 1) & sequenceMax;
             if (sequence == 0L) {
@@ -19,6 +21,7 @@ public class SnowIDUtils {
                 lastTime = currentTime;
             }
         } else {
+            // 新的毫秒序列号归零
             sequence = 0L;
             lastTime = currentTime;
         }
